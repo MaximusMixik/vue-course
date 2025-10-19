@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vite App</title>
+	<link href="/src/assets/main.css" rel="stylesheet">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+</head>
+
+<body>
+
+	<!-- http://localhost:5173/lessons/lesson2/index.html -->
+
+	<!-- 1 -->
+	<!-- <div id="app">
+
+		<label>Your name <input class="border-pink-400 border-2 rounded-[10px]" type="text"
+				v-model.text="personName"></label>
+		<hr>
+		<label>Your age <input class="border-pink-400 border-2 rounded-[10px]" type="text"
+				v-model.lazy.number="personAge"></label>
+		<br>
+		<button v-if="isValidAge">Registration</button>
+		<div v-else-if="displayMessage"> {{personName}}, sorry you very young</div>
+
+	</div>
+
+	<script>
+
+		const { createApp } = Vue
+
+		const minUserAge = 16
+		const app = createApp({
+			data() {
+				return {
+					personName: null,
+					personAge: null
+				}
+			},
+			methods: {
+			},
+			computed: {
+				isValidAge() {
+					return this.personAge >= minUserAge
+				},
+				displayMessage() {
+					if (isNaN(parseInt(this.personAge))) return false
+					return !this.isValidAge
+				}
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+	<!-- 2 -->
+	<!-- <div id="app2">
+		<label>Your age <input class="border-pink-400 border-2 rounded-[10px]" type="text"
+				v-model.lazy.number="personAge"></label>
+		<br>
+		<div v-if="displayMessage">Sorry you very young</div>
+		<ul v-else-if="personAge===18">
+			<li v-for="product of products">{{product}}</li>
+		</ul>
+		<ul v-else-if="personAge>18">
+			<li v-for="product of megaProducts">{{product}}</li>
+		</ul>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const minUserAge2 = 16
+		const app2 = createApp({
+			data() {
+				return {
+					personName: null,
+					personAge: null,
+					products: ['milk', 'eggs', 'butter'],
+					megaProducts: ['car', 'helicopter'],
+				}
+			},
+			methods: {
+			},
+			computed: {
+				isValidAge() {
+					return this.personAge >= minUserAge2
+				},
+				displayMessage() {
+					if (isNaN(parseInt(this.personAge))) return false
+					return !this.isValidAge
+				}
+			}
+		})
+		app2.mount('#app2')
+	</script> -->
+
+	<!-- 3  36m-->
+
+	<!-- <div id="app3">
+		<label>User Money <input class="border-pink-400 border-2 rounded-[10px]" type="text"
+				v-model.lazy.number="userMoney"></label>
+		<br>
+		<label>Product price <input class="border-pink-400 border-2 rounded-[10px]" type="text"
+				v-model.lazy.number="productPrice"></label>
+		<br>
+		<template v-if="isDataValid">
+			<div v-if="userMoney<productPrice">Sorry you not have enough money -{{productPrice - userMoney}}</div>
+			<div v-else-if="userMoney - productPrice >= 100">
+				<p>yes, do you want bonus?</p>
+				<button>bye bonus 100</button>
+			</div>
+			<div v-else>
+				😁
+			</div>
+		</template>
+		<div v-else>input all values</div>
+
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app3 = createApp({
+			data() {
+				return {
+					userMoney: null,
+					productPrice: null,
+				}
+			},
+			methods: {
+			},
+			computed: {
+				isDataValid() {
+					return this.productPrice && this.userMoney
+				}
+			}
+		})
+		app3.mount('#app3')
+	</script> -->
+
+
+
+	<!--!!???? 4 - 55m v-show="value" if value===false  style- display:none-->
+
+	<!-- <div id="app4">
+		<label>Interval
+			<input class="border-pink-400 border-2 rounded-[10px]" type="number" v-model.lazy.number="interval">
+		</label>
+		<div class="">{{interval}}</div>
+		<div v-show="showFigure" class="border-pink-400 border-2   size-20"></div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app4 = createApp({
+			data() {
+				return {
+					interval: null,
+				}
+			},
+			methods: {
+				// showFigure(){
+
+				// }
+
+			},
+			computed: {
+				// ????
+				// showFigure() {
+				// 	if (this.interval) {
+				// 		setInterval(() => {
+				// 			this.interval--
+				// 			if (this.interval === 0) return
+				// 		}, 1000);
+				// 	}
+				// }
+			}
+		})
+		app4.mount('#app4')
+	</script> -->
+
+	<!-- 5 v-for='(item, index) in myProducts' :key="item.id" -->
+	<!-- <div id="app5">
+
+		<ul>
+			<li v-for="i in 5 ">
+				{{i}}-{{getRandNumber()}}
+			</li>
+		</ul>
+
+		<br>
+		<hr>
+		<br>
+
+		<template v-for="i in 5">
+			<h2>{{i}}</h2>
+			<div>{{i}} ^ 2 = {{i*i}}</div>
+			<div>{{i}} ^ 3 = {{i*i*i}}</div>
+		</template>
+
+		<br>
+		<hr>
+		<br>
+
+		<template v-for="i in 4">
+			<div>
+				<div :id="i">
+					{{i}}) {{getRandWishes().wish}}
+				</div>
+			</div>
+		</template>
+
+		<br>
+		<hr>
+		<br>
+
+		1:14 v-for='(item, index) in myProducts' :key="item.id"
+		<template v-for='(item, index) in myProducts' :key="item.id">
+			<div :id="item.id">
+				<h2><span>{{index+1}} </span> {{item.title}}</h2>
+				<div>{{item.price}}</div>
+			</div>
+			<hr>
+		</template>
+
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const wishes = [
+			{
+				id: 1,
+				wish: 'Нехай у вас буде чудовий день!',
+			},
+			{
+				id: 2,
+				wish: 'Бажаю вам щастя і радості!',
+			},
+			{
+				id: 3,
+				wish: 'Нехай у вас все буде добре!',
+			},
+			{
+				id: 4,
+				wish: 'Міцного здоров\'я та успіхів у всьому!',
+			},
+			{
+				id: 5,
+				wish: 'Нехай збуваються всі ваші мрії!',
+			},
+			{
+				id: 6,
+				wish: 'Бажаю вам натхнення та творчих успіхів!',
+			},
+			{
+				id: 7,
+				wish: 'Нехай кожен день приносить радість!',
+			},
+			{
+				id: 8,
+				wish: 'Бажаю вам гармонії та любові!',
+			},
+		];
+
+		const productsList = [
+			{
+				id: 1,
+				title: 'Tea',
+				price: 90,
+			},
+			{
+				id: 2,
+				title: 'Milk',
+				price: 120,
+			},
+			{
+				id: 3,
+				title: 'Bread',
+				price: 25,
+			},
+			{
+				id: 4,
+				title: 'Cheese',
+				price: 390,
+			},
+			{
+				id: 5,
+				title: 'Butter',
+				price: 150,
+			},
+		];
+		const app5 = createApp({
+			data() {
+				return {
+				}
+			},
+			methods: {
+				getRandNumber(min = 1, max = 10) {
+					return Math.floor(Math.random() * 10);
+				},
+				getRandWishes() {
+					const randIndex = Math.floor(Math.random() * wishes.length);
+					return wishes[randIndex]
+				}
+			},
+			computed: {
+				myProducts() {
+					return productsList
+				},
+				myNumbers() {
+					return numbers
+				}
+			}
+		})
+		app5.mount('#app5')
+	</script> -->
+
+
+	<!-- 6 -->
+	<!-- 1:31 -->
+
+	<!-- <div id="app">
+		<div>
+			<label>Product name <input type="text" v-model.text.lazy="productName"></label>
+			<label>Product value <input type="number" v-model.number.lazy="productValue"></label>
+			<button :disabled="!isDataComplited" @click="addProduct">Add product</button>
+		</div>
+
+
+		<template v-if="!isProductsListEmpty">
+			<h1>List</h1>
+			<div v-for="(product,ind) in products" :key="ind" :id="product.id">
+				<h2>{{product.name}} <span>{{product.value}}</span></h2>
+			</div>
+		</template>
+		<div v-else>
+			List clear
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					productName: null,
+					productValue: null,
+					products: [],
+					// products: [
+					// 	{
+					// 		id: new Date().getTime(),
+					// 		name: 'milk',
+					// 		value: 2
+					// 	}
+					// ]
+				}
+			},
+			methods: {
+				addProduct() {
+					if (this.productName && this.productValue) {
+						const product = {
+							id: new Date().getTime(),
+							name: this.productName,
+							value: this.productValue
+						}
+
+						this.products.push(product)
+						this.clearInputs()
+					}
+					return
+				},
+				clearInputs() {
+					this.productName = this.productValue = null
+				}
+			},
+			computed: {
+				isProductsListEmpty() {
+					return this.products.length === 0
+				},
+				isDataComplited() {
+					return this.productName && this.productValue
+				}
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+
+
+
+
+	<!-- 1:54 -->
+
+	<!-- 7 -->
+	<!-- <div id="app">
+		<div v-for="(value, key, ind) in obj" :key="">
+			<span>{{ind+1}} - {{key}} - {{value}}</span>
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					obj: {
+						author: 'Max',
+						title: 'great book',
+						price: 10.99,
+						imageSRc: 'https://google.com'
+					}
+				}
+			},
+			methods: {
+			},
+			computed: {
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+
+	<!-- 2:00 -->
+
+	<!-- <div id="app">
+		<label :class="[
+		{
+		'hide' : true,
+		'message' : showMessage,
+		[statusColor] : true 
+		}, statusIcon, 'label'] "> energy level <input type="number " v-model.number="energyLevel"></label>
+
+		<hr>
+		<br>
+		<div>
+			<label>Worker age <input type="number" :style="{backgroundColor : 'yellow', color: 'black',
+			opacity: 0.8}" v-model="workerAge"></label>
+
+			<button :disabled="!isValidWorkerAge" class=" static-class" :class=" {[statusClass]: isValidWorkerAge } ">
+				Registration</button>
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					energyLevel: 1,
+					workerAge: null
+				}
+			},
+			methods: {
+			},
+			computed: {
+				//  2-step
+				statusColor() {
+					let currentStateColor = null
+					if (this.energyLevel > 80) currentStateColor = 'high'
+					else if (this.energyLevel > 30) currentStateColor = 'middle'
+					else currentStateColor = 'low'
+
+					return currentStateColor
+				},
+				statusIcon() {
+					let iconClass = null
+					if (this.energyLevel > 50) iconClass = 'success'
+					else iconClass = 'warning'
+					return iconClass
+				},
+				showMessage() {
+					return true
+				},
+				isValidWorkerAge() {
+					return this.workerAge && this.workerAge > 0 && this.workerAge < 100
+				},
+				statusClass() {
+					if (this.workerAge) return this.workerAge >= 45 ? 'bg-blue-400' : 'bg-green-400'
+				}
+			},
+
+		})
+		app.mount('#app')
+	</script>
+
+	<style>
+		/* 1st-step */
+		.high {
+			background-color: green;
+		}
+
+		.middle {
+			background-color: yellow;
+			color: black;
+		}
+
+		.low {
+			background-color: red;
+		}
+
+		.success::before {
+			content: '✅';
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+		}
+
+		.warning::before {
+			content: '⚠️';
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+		}
+	</style> -->
+
+
+	<!-- HW 2 -->
+	<!-- <div id="app">
+		<label>Login
+			<input type="text" v-model="userLogin">
+		</label>
+		<br>
+		<label>Password
+			<input type="password" v-model="userPass">
+		</label>
+		<div v-if="isValidUser">
+			😀
+		</div>
+		<div v-else :class="[isIvan]">
+			<h3>Invalid</h3>
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					userLogin: null,
+					userPass: null,
+					users: [
+						{ login: 'max', pass: '123' },
+						{ login: 'alex', pass: 123 },
+					]
+				}
+			},
+			methods: {
+
+			},
+			computed: {
+				isValidUser() {
+					let status = false
+					if (this.userLogin && this.userPass) {
+						this.users.forEach(user => {
+							if (this.userLogin == user.login && this.userPass == user.pass) {
+								status = true
+							}
+						});
+					}
+					return status
+				},
+				isIvan() {
+					return this.userLogin && this.userLogin === 'Іван' ? "bg-blue-400" : 'bg-red-400'
+				}
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+
+
+
+	<!-- Задача 2. З випадаючого списку вибираємо клас квитка у літаку. Якщо 
+1) бізнес -  виводимо елементи для вибору газети та коньяку (якщо вибрано коньяк, то запропонувати закуску (так/ні)), на фоні зображення бізнес кают 
+2) економ – виводимо елементи для вибору типу пива і чипсів, на фоні хмарки. -->
+	<!-- <div id="app">
+
+		<label>
+			клас квитка у літаку
+			<select>
+				<option v-for="" value=""></option>
+			</select>
+
+		</label>
+
+
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const tickets = [
+			{}
+		]
+
+		const app = createApp({
+			data() {
+				return {
+
+
+				}
+			},
+			methods: {
+
+			},
+			computed: {
+			}
+		})
+		app.mount('#app')
+	</script> -->
+	===============================================================================
+	<!-- 
+	Користувача заходить на сайт і вводить свій вік. Якщо вік менше 16, то вивсти повідомлення про заборону користування
+	сайтом, інакше вивести список топ товарів
+	<div id="app">
+
+		<label>
+			User age
+			<input type="number" v-model.number.lazy="userAge">
+		</label>
+		<template v-if="isInvalidAge">
+			повідомлення про заборону користування сайтом
+		</template>
+		<template v-else>
+			список топ товарів
+		</template>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					userAge: ''
+				}
+
+			},
+			computed: {
+				isInvalidAge() {
+					return this.userAge && this.userAge < 16
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	===============================================================================
+	<!-- З клавіатури вводиться кількість грошей користувача та ціна товару
+	• якщо грошей не вистачає, то повідомити скільки ще треба доплатити
+	• якщо грошей достатньо на купівлю ще й акційного подарунку (100 грн), то запропонувати купити (відобразити додаткову
+	кнопку «Купити подарунок»)
+	• якщо кількість грошей співпадає з вартістю, то вивести смай
+	<div id="app">
+
+		<label>
+			User money
+			<input type="number" v-model.number.lazy="userMoney">
+		</label>
+		<br>
+		<label>
+			Product price
+			<input type="number" v-model.number.lazy="productPrice">
+		</label>
+
+		<template v-if="userMoney && productPrice ">
+			<div v-if="userMoney<productPrice"> not enougth money, {{productPrice - userMoney}} </div>
+			<button v-else-if="productPrice && userMoney-productPrice >=100">
+				Купити подарунок 100 грн
+			</button>
+			<div v-else-if="productPrice===userMoney && userMoney"> Smile =) </div>
+			<div v-else> Купити, ваша решта {{userMoney-productPrice }} </div>
+		</template>
+
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					userMoney: null,
+					productPrice: null,
+				}
+
+			},
+			computed: {
+				isInvalidAge() {
+					return this.userAge && this.userAge < 16
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+
+	===============================================================================
+	<!-- Приклад. Користувач вводить логін. Якщо логін «admin» - відобразити поле для вводу пароля і кнопку
+	«Увійти», інакше – вивести првітання «Раді бачити шановний Гість!»
+
+	<div id="app">
+		<label>
+			Login
+			<input type="text" v-model="userLogin">
+		</label>
+		<br>
+		<template v-if="showAuthorizationItems">
+			<label>
+				user password
+				<input type="password" v-model.trim='password'>
+			</label>
+			<button>«Увійти»</button>
+		</template>
+		<template v-else>
+			«Раді бачити шановний Гість!»
+		</template>
+	</div>
+	<script>
+		const { createApp } = Vue
+		const baseLogin = 'admin'
+		const app = createApp({
+			data() {
+				return {
+					userLogin: '',
+				}
+
+			},
+			computed: {
+				showAuthorizationItems() {
+					return this.userLogin === baseLogin
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+	===============================================================================
+	<!-- Вводиться інтервал. Після запуску відобразити таймер відліку (через секунду відображати і забирати червоний круг
+
+	<div id="app">
+		<label>
+			Login
+			<input type="number" v-model.number.lazy="interval">
+		</label>
+		<button @click="myTimer()">Start</button>
+	<br>
+	<div v-show="">
+		showCircle()
+		circle
+	</div>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					interval: null,
+					status: true
+				}
+			},
+			methods: {
+				// myTimer() {
+				// 	setTimeout(() => {
+				// 		alert(111)
+
+				// 		this.showCircle
+				// 		this.myTimer
+				// 	}, this.interval)
+				// },
+				// showCircle() {
+				// 	this.status = this.status === true ? false : true
+				// 	return this.status
+				// }
+			},
+			computed: {
+
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	==================================================================
+	<!-- v-for(1:00) -->
+
+	<!-- <div id="app">
+		<div v-for="i in 2">{{i}} - {{getRandomWish()}}</div>
+		<hr>
+		<div v-for="(el, ind) in myNumbers">
+			{{ind+1}}) {{el}}
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const desire = ['money', 'rich', 'love', 'beer']
+		const numbers = [22, 32, 12, 32, 12]
+		const app = createApp({
+			data() {
+				return {
+				}
+			},
+			methods: {
+				getRandomNumber(min = 1, max = 100) {
+					return min + Math.floor(Math.random() * (max - min + 1))
+				},
+				getRandomWish() {
+					return desire[this.getRandomNumber(0, desire.length - 1)]
+				}
+			},
+			computed: {
+				myNumbers() { return numbers }
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	===============================================================================
+	<!-- v-for, v-if -->
+	<!-- <div id="app">
+		<label>
+			product name
+			<input type="text" v-model.trim="productName">
+		</label>
+		<br>
+		<label>
+			product count
+			<input type="text" v-model.number="productCount">
+		</label>
+		<br>
+		<button @click="addProduct">ADD product</button>
+		<hr>
+
+		<template v-if="productList.length > 0" v-for="(product, ind) in productList" :key="product.id">
+			<div>{{product.name}} {{product.count}}</div>
+		</template>
+		<template v-else>
+			add new products
+		</template>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					productName: '',
+					productCount: '',
+					productList: [],
+					// productList: [
+					// 	{ id: 1, name: 'water', count: 1 },
+					// 	{ id: 2, name: 'milk', count: 12 },
+					// ],
+				}
+			},
+			methods: {
+				addProduct() {
+					if (!this.productName && !this.productCount) return
+					this.productList.push({ id: new Date().getTime(), name: this.productName, count: this.productCount })
+					this.clearField()
+				},
+				clearField() {
+					this.productName = ''
+					this.productCount = ''
+				}
+			},
+			computed: {
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	<!-- ===============================================================================
+	<div id="app">
+		<template v-for="(val, key, ind) in book" :key="ind">
+			<div> {{ind+1}}) {{key}} : {{val}} </div>
+		</template>
+
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					book: {
+						title: 'Great book',
+						author: 'thomas Viliams',
+						year: 2025,
+						id: 23
+					},
+
+				}
+			},
+			methods: {
+			},
+			computed: {
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+	<!--===============================================================================
+	<div id="app">
+		<label>
+			<span :class="[statusClass,statusIcon ]">
+				energy level
+				<input :class="statusClass" type="number" v-model="energy">
+			</span>
+		</label>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					energy: null
+				}
+			},
+			methods: {
+			},
+			computed: {
+				statusClass() {
+					let className
+					if (this.energy > 80) className = 'green'
+					else if (this.energy > 40) className = 'yellow'
+					else className = 'red'
+					return className
+				},
+				statusIcon() {
+					let icon = null
+					if (this.energy) {
+						icon = this.energy > 50 ? 'succes' : 'warning'
+					}
+					return icon
+				}
+
+
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+		.green {
+			background-color: green;
+		}
+
+		.yellow {
+			background-color: yellow;
+		}
+
+		.red {
+			background-color: red;
+		}
+
+		.warning::before {
+			content: "X"
+		}
+
+		.succes::before {
+			content: "+"
+		}
+	</style> -->
+	<!-- ===============================================================================
+	Задача 1. Вводимо логіна і пароль.
+	Якщо логін вірний відображаємо смайл.
+	Якщо ні, то:
+	1) якщо логін = Іван – колір повідомлення про помилку синій
+	2) якщо хтось інший, то колір повідомлення червоний
+	<div id="app">
+		<label>
+			логін
+			<input type="text" v-model.trim.lazy="login">
+		</label>
+		<label>
+			пароль
+			<input type="text" v-model.trim.lazy="password">
+		</label>
+
+		<div v-if="isLoginCorrect">
+			=)
+		</div>
+		<div v-else-if="hasData" :class="erorColor">
+			Error
+		</div>
+		<div v-else>
+			input all your data
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const users = [
+			{ login: 'Alex', pass: '123' },
+			{ login: 'Smit', pass: '34a' },
+		]
+		const app = createApp({
+			data() {
+				return {
+					login: null,
+					password: null,
+				}
+			},
+			methods: {
+			},
+			computed: {
+				hasData() {
+					return this.login && this.password
+				},
+				isLoginCorrect() {
+					return users.find(el => el.login === this.login)
+				},
+				erorColor() {
+					return this.login === 'Іван' ? 'blue' : 'red'
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+		.red,
+		.blue {
+			color: white
+		}
+
+		.blue {
+			background-color: blue;
+		}
+
+		.red {
+			background-color: red;
+		}
+	</style> -->
+	<!-- ===============================================================================
+	Задача 2.
+	З випадаючого списку вибираємо клас квитка у літаку.
+	Якщо
+	1) бізнес - виводимо елементи для вибору газети та коньяку (якщо вибрано коньяк, то запропонувати закуску (так/ні)),
+	на фоні зображення бізнес кают
+	2) економ – виводимо елементи для вибору типу пива і чипсів, на фоні хмарки.
+	<div id="app">
+		<select v-model="flyClass">
+			<option disabled value="">Please select one</option>
+			<option value="busines">busines</option>
+			<option value="econom">econom</option>
+		</select>
+		<template v-if="flyClass">
+			<div v-if=" flyClass === 'busines'">
+				<select v-model="joy">
+					<option disabled value="">Please select one joy</option>
+					<option>коньяку</option>
+					<option>газети</option>
+				</select>
+				<fieldset v-if="joy === 'коньяку' ">
+					закуску?
+					<input type="checkbox" v-model="checked" />
+					<label for="checkbox">{{ checkedText }}</label>
+				</fieldset>
+				<img
+					src="https://images.unsplash.com/photo-1673555136466-beb9efeb6066?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+					style="position: absolute; object-fit: cover; width: 100vw; height: 100vh; inset: 0; z-index: -1;"
+					alt="Image">
+			</div>
+			<div v-else>
+				<label>
+					choice beer
+					<select v-model="beer">
+						<option disabled value="">Please select beer</option>
+						<option>light</option>
+						<option>dark</option>
+					</select>
+				</label>
+				<label>
+					choice chips
+					<select v-model="chips">
+						<option disabled value="">Please select чипсів</option>
+						<option>lays</option>
+						<option>Strong</option>
+					</select>
+				</label>
+
+				<img
+					src="https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+					style="position: absolute; object-fit: cover; width: 100vw; height: 100vh; inset: 0; z-index: -1;"
+					alt="Image">
+			</div>
+		</template>
+
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					flyClass: '',
+					joy: '',
+					snaks: null,
+					checked: true,
+					beer: '',
+					chips: '',
+				}
+			},
+			methods: {
+			},
+			computed: {
+				checkedText() {
+					return this.checked ? 'Yes' : 'No!'
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	<!-- ===============================================================================
+	Задача 3 Елемент тренажера англійської.
+	Виводимо зображення елемента і слово.
+	Користувач вводить відповідь.
+	Якщо вірно – відтворюємо фразу «Добре. Молодець!»
+	(і додаємо зелену рамку до елемента),
+	якщо ні - то відтворюємо фразу «Невірно, спробуйте ще раз» (і додаємо червону рамку).
+	<div id="app">
+		<div :class="borderStyle">
+			<img :src="element.image" style="width: 300px; height: 300px; object-fit: cover; display: block;"
+				:alt="element.word">
+			<div>
+				{{element.word}}
+			</div>
+			<br>
+			<label>
+				your translation
+				<input type="text" v-model.lazy.trim="userTranslation">
+			</label>
+			<template v-if="isCorrectAnsver">
+				«Добре. Молодець!»
+			</template>
+			<template v-else>
+				«Невірно, спробуйте ще раз»
+			</template>
+		</div>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+		const words = [
+			{
+				word: 'table', image: 'https://images.unsplash.com/photo-1573104049264-5324ea0027d5?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', translation: 'стіл'
+			},
+			{
+				word: 'chair', image: 'https://images.unsplash.com/photo-1581539250439-c96689b516dd?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', translation: 'стілець'
+			},
+			{
+				word: 'meat', image: 'https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', translation: "м'ясо"
+			},
+		]
+
+		const app = createApp({
+			data() {
+				return {
+					// element: {
+					// 	word: 'table', image: 'https://images.unsplash.com/photo-1573104049264-5324ea0027d5?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', translation: 'стіл'
+					// },
+					userTranslation: '',
+				}
+			},
+			methods: {
+			},
+			computed: {
+				element() { return words[2] },
+				isCorrectAnsver() { return this.userTranslation === this.element.translation },
+				borderStyle() {
+					let borderClass = null
+					if (this.userTranslation) {
+						borderClass = this.isCorrectAnsver ? 'green-border' : 'red-border'
+					}
+					return borderClass
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+		.green-border,
+		.red-border {
+			border-width: 2px;
+			border-style: solid;
+		}
+
+		.red-border {
+			border-color: red;
+
+		}
+
+		.green-border {
+			border-color: green;
+
+		}
+	</style> -->
+
+	<!-- <script type="module" src="../../src/main.js"></script> -->
+	<!-- ===============================================================================
+	Задача 4. Вивести список як маркований список з елементами у форматі (name: salary)
+	<div id="app">
+		<ul>
+			<li v-for="(value,  ind) in list" :key="value.id">
+				{{value.name}} : {{value.salary}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const workersList2 = [
+			{
+				id: '111',
+				name: 'Іванов',
+				salary: 10000,
+			},
+			{
+				id: '112',
+				name: 'Петров',
+				salary: 20000,
+			},
+			{
+				id: '113',
+				name: 'Сидоров',
+				salary: 50000,
+			},
+		]
+		const app = createApp({
+			computed: {
+				list() { return workersList2 }
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	<!-- ===============================================================================
+	<br>
+	Задача 5. Самостійно сформуйте масив даних та виведіть фрагмент на зразок поданого
+	(дані не обов’язково повинні співпадати)
+	<div id="app">
+		<div v-for="(item, ind) in list" :id="item.id" :key="item.id">
+			<div style="display: flex;">
+				<img :src="item.logoSrc" alt="logo" style="width: 50px; height: 50px; object-fit: contain;">
+				<div style="display: grid; gap: 3px;">
+					<span>{{item.author}}</span>
+					<span>
+						<a :href="item.link">
+							{{item.link}}
+						</a>
+						<span v-if="item.translatedLink">
+							-
+							<a :href="item.translatedLink.href">
+								{{item.translatedLink.text}}
+							</a>
+						</span>
+					</span>
+				</div>
+			</div>
+			<h3>{{item.title}}</h3>
+			<div v-if="item.text" v-html="item.text"></div>
+			<br>
+
+			<div v-if="item.tagLinks && item.tagLinks.length">
+				<div v-for="(link, ind) in  item.tagLinks">
+					<a :href="link.href" :key="ind">
+						{{link.text}}
+					</a>
+					<br>
+					<br>
+				</div>
+
+			</div>
+			<hr>
+		</div>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const data = [
+			{
+				id: 1,
+				logoSrc: 'https://w7.pngwing.com/pngs/492/902/png-transparent-vuejs-original-wordmark-logo-icon.png',
+				author: 'Vue.js',
+				link: 'https://vuejs.org',
+				translatedLink: {
+					text: 'Перевести эту страницу',
+					href: 'https://vuejs.org/'
+				},
+				title: 'Vue.js - The Progressive JavaScript Framework | Vue.js',
+				text: 'The Progressive JavaScript Framework · Approachable. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.',
+				tagLinks: [
+					{
+						text: 'Computed Properties',
+						href: 'https://vuejs.org/guide/essentials/computed'
+					},
+					{
+						text: 'Быстрый старт',
+						href: 'https://ru.vuejs.org/guide/quick-start.html'
+					},
+				]
+			},
+			{
+				id: 2,
+				logoSrc: 'https://cdn3d.iconscout.com/3d/free/thumb/free-javascript-3d-icon-download-in-png-blend-fbx-gltf-file-formats--html-logo-vue-angular-coding-lang-pack-logos-icons-7577991.png?f=webp',
+				author: 'Современный учебник JavaScript',
+				link: 'https://learn.javascript.ru',
+				// translatedLink: {
+				// 	text: 'Перевести эту страницу',
+				// 	href: 'https://vuejs.org/'
+				// },
+				title: 'Курс по Vue.js - Современный учебник JavaScript',
+				text: '<span>Цели курса. <em>Курс посвящён разработĸе на Vue 3</em> - мы используем Composition API, современные библиотеки и подходы. Курс был полностью переработан и переведён&nbsp;...</span>',
+			},
+			// {
+			// id: 4,
+			// 	logoSrc: '',
+			// 	author: '',
+			// 	link: '',
+			// 	translatedLink: {
+			// 		text: 'Перевести эту страницу',
+			// 		href: 'https://vuejs.org/'
+			// 	},
+			// 	title: '',
+			// 	text: '',
+			// 	tagLinks: [
+			// 		{
+			// 			text: '',
+			// 			href: ''
+			// 		}
+			// 	]
+			// },
+		]
+
+
+		const app = createApp({
+			data() {
+				return {
+
+				}
+			},
+			methods: {
+			},
+			computed: {
+				list() { return data }
+
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	<!-- ===============================================================================
+	Задача 6. На кухню поступають замовлення.
+	Спочатку ми додаємо їх у список “Очікують на виконання”,
+	якщо повар береться робити — замовлення переходить у список “Виконуються”,
+	якщо замовлення виконано — переходить у список “Готові до виносу”.
+	Якщо натиснути на “Подано” - страва зникає з таблиці
+	Підказка: тут треба зберігати 3 масиви страв ( waitingList, processingList, completedList)
+
+	<div id="app">
+
+		<fieldset>
+			add new Dish
+			<input type="text" v-model.trim="newDish">
+			<button @click="addToWaitingList">
+				Add
+			</button>
+		</fieldset>
+
+		<div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;">
+
+			<div>
+				<h3>
+					Очікують на виконання
+				</h3>
+				<ul v-if="waitingList && waitingList.length !== 0">
+					<li v-for="(dish, ind) in  waitingList" :key="ind"
+						style="display: flex; justify-content: space-between; gap: 20px;">
+						<span>
+							{{dish}}
+						</span>
+						<button @click="addToProcessingList(ind)">
+							Repare
+						</button>
+					</li>
+				</ul>
+			</div>
+
+			<div>
+				<h3>
+					Виконуються
+				</h3>
+				<ul v-if="processingList && processingList.length !== 0">
+					<li v-for="(dish, ind) in  processingList" :key="ind"
+						style="display: flex; justify-content: space-between; gap: 20px;">
+						<span>
+							{{dish}}
+						</span>
+						<button @click="addToCompletedList(ind)">
+							Repared
+						</button>
+					</li>
+				</ul>
+			</div>
+
+			<div>
+				<h3>
+					Готові до виносу
+				</h3>
+				<ul v-if="completedList && completedList.length !== 0">
+					<li v-for="(dish, ind) in  completedList" :key="ind"
+						style="display: flex; justify-content: space-between; gap: 20px;">
+						<span>
+							{{dish}}
+						</span>
+						<button @click="done(ind)">
+							Done
+						</button>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					newDish: '',
+					waitingList: [],
+					processingList: [],
+					completedList: [],
+				}
+			},
+			methods: {
+				addToWaitingList() {
+					this.waitingList.push(this.newDish)
+					this.clearInput()
+				},
+				clearInput() { this.newDish = '' },
+				addToProcessingList(ind) {
+					const item = this.waitingList.splice(ind, 1)[0]
+					this.processingList.push(item)
+				},
+				addToCompletedList(ind) {
+					const item = this.processingList.splice(ind, 1)[0]
+					this.completedList.push(item)
+				},
+				done(ind) {
+					this.completedList.splice(ind, 1)
+				},
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	<!-- template -->
+	<!-- ===============================================================================
+	Задача 
+	<div id="app">
+		
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+
+				}
+			},
+			methods: {
+			},
+			computed: {
+
+			}
+		})
+
+		app.mount('#app')
+	</script>
+	
+	<style>
+	
+	</style> -->
+
+
+
+</body>
+
+</html>

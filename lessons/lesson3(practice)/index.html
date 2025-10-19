@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vite App</title>
+	<link href="/src/assets/main.css" rel="stylesheet">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+
+	<!-- http://localhost:5173/lessons/lesson3/index.html -->
+
+	<!-- 1 -->
+	<!-- <div id="app">
+
+		<label>length in cm<input type="number" v-model.number.lazy="cm"></label>
+		<br>
+
+		<div v-show="cm">
+			<span>
+				{{meters}} m
+			</span>
+			<br>
+			<span>
+				{{kilometers}} km
+			</span>
+
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					cm: null
+				}
+			},
+			methods: {
+			},
+			computed: {
+				meters() {
+					return (this.cm / 100).toFixed(2)
+				},
+				kilometers() {
+					return (this.meters / 1000).toFixed(4)
+				}
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+	<!-- 2 -->
+	<!-- <div id="app">
+		<label>Temp<input :class="{[tempClass]:temp}" type="number" min="-40" max="50" v-model.number="temp"></label>
+	</div>
+
+	<script>
+		// :style="{backgroundColor : tempStyle}"
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					temp: null
+				}
+			},
+			methods: {
+			},
+			computed: {
+				tempClass() {
+					if (this.temp) {
+						let color
+						if (this.temp <= 0) color = 'bg-white'
+						else if (this.temp < 10) color = 'bg-blue-400'
+						else if (this.temp < 22) color = 'bg-green-400'
+						else color = 'bg-red-400'
+						return color
+					}
+				},
+				// tempStyle() {
+				// 	if (this.temp) {
+				// 		let color
+				// 		if (this.temp < 0) color = 'white'
+				// 		else if (this.temp < 10) color = 'blue'
+				// 		else if ( this.temp < 22) color = 'green'
+				// 		else color = 'red'
+				// 		return color
+				// 	}
+				// },
+
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+	<!-- 3  38min-->
+
+	<!-- <div id="app">
+		<div class="size-8 inline-block " :class="statusClass(el)" @click="checkMine(ind)" v-for="(el,ind) in gameField"
+			:key="ind">
+		</div>
+
+		<script>
+			/*
+			:class="{
+			'bg-gray-300': el.isClosed,
+			'bg-red-400': !el.isClosed && el.hasMine,
+			'bg-green-400': !el.isClosed && !el.hasMine,
+			}"
+			*/
+			const { createApp } = Vue
+			const app = createApp({
+				data() {
+					return {
+						gameField: [
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+							{
+								hasMine: 1,
+								isClosed: true
+							},
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+							{
+								hasMine: 0,
+								isClosed: true
+							},
+						]
+					}
+				},
+				methods: {
+					checkMine(ind) {
+						this.gameField[ind].isClosed = false
+						// left side
+						for (let i = ind - 1; i >= 0 && !this.gameField[i].hasMine; i--) {
+							this.gameField[i].isClosed = false
+						}
+						// right side
+						for (let i = ind + 1; i < this.gameField.length && !this.gameField[i].hasMine; i++) {
+							this.gameField[i].isClosed = false
+						}
+					},
+
+					statusClass(el) {
+						let status = null
+						if (!el.isClosed && !el.hasMine) status = 'bg-green-400'
+						else if (!el.isClosed && el.hasMine) status = 'bg-red-400'
+						else status = 'bg-gray-300'
+						return status
+					}
+
+				},
+				computed: {
+
+				}
+			})
+			app.mount('#app')
+		</script> -->
+
+
+
+	<!-- 4 58min-->
+	<!-- <div id="app">
+		<div class="flex gap-8 ">
+			<div v-show="fullList.length" class="border-2 border-red-400 p-2">
+				<h2 class="text-2xl border-b">List of all</h2>
+				<ul>
+					<li v-for="(el,ind) in fullList" :key="ind">
+						{{el}}
+						<button class="text-3xl cursor-pointer" @click="moveRight(ind)">→</button>
+					</li>
+				</ul>
+			</div>
+			<div v-show="fullList.length" class="border-2 border-red-400 p-2">
+				<h2 class="text-2xl border-b">List of primary</h2>
+				<ul>
+					<li v-for="(el,ind) in primaryList" :key="ind">
+						{{el}}
+						<button class="text-3xl cursor-pointer" @click="moveLeft(ind)">←</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					fullList: ['John Depp', 'Sara', 'Dan', 'Hrihoryy', 'Natan Ice'],
+					primaryList: ['John Cash', 'Big Monster']
+					// primaryList: []
+				}
+			},
+			methods: {
+				moveRight(ind) {
+					this.primaryList.push(this.fullList[ind])
+					this.fullList.splice(ind, 1)
+				},
+				moveLeft(ind) {
+					this.fullList.push(this.primaryList[ind])
+					this.primaryList.splice(ind, 1)
+				}
+			},
+			computed: {
+
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+	<!-- 8 1:15min-->
+
+	<!-- <div id="app">
+
+		<div class="filters flex gap-4 ">
+
+			<div>
+				<h2 class="text-xl">Marks</h2>
+				<select class=" w-full border-2  border-red-300 " v-model="selectedBrand">
+					<option class="text-white bg-black" :value="null">
+						All Brands
+					</option>
+					<option class="text-white bg-black" :value="brand" v-for="(brand, ind) in uniqueBrandList" :key="brand">
+						{{brand}}
+					</option>
+				</select>
+
+				<button v-show="selectedBrand" @click="clear(this.selectedBrand)">
+					Clear Brand
+				</button>
+			</div>
+
+			<div>
+				<h2 class="text-xl">year</h2>
+				<select class=" w-full border-2  border-red-300 " v-model="selectedYear">
+					<option class="text-white bg-black" :value="null">
+						All years
+					</option>
+					<option class="text-white bg-black" :value="year" v-for="(year, ind) in uniqueYearList" :key="year">
+						{{year}}
+					</option>
+				</select>
+				<button v-show="selectedYear" @click="clear(this.selectedYear)">
+					Clear Years
+				</button>
+			</div>
+
+		</div>
+
+		<ul class="space-y-2">
+			<li v-for="(car, ind) in filteredCarsList" :key="car.id">
+				<h2>{{ind+1}}.{{car.brand}}</h2>
+				<mark>{{car.price}}$</mark>
+				<br>
+				<span>{{car.year}}y</span>
+				<br>
+				<mar>{{car.owner}}</mar>
+				<hr>
+				<br>
+			</li>
+		</ul>
+
+	</div>
+
+	<script>
+
+		// v-show="selectedBrand || selectedYear"
+		const { createApp } = Vue
+
+		const cars = [
+			{ id: 1, brand: 'Mercedes', year: 2018, price: 25000, owner: 'Michael Wagner' },
+			{ id: 2, brand: 'Opel', year: 2000, price: 5000, owner: 'Sarah Johnson' },
+			{ id: 3, brand: 'Opel', year: 2004, price: 15000, owner: 'David Miller' },
+			{ id: 4, brand: 'Audi', year: 2000, price: 7000, owner: 'Emma Davis' },
+			{ id: 5, brand: 'Audi', year: 2018, price: 32000, owner: 'Thomas Wilson' },
+			{ id: 6, brand: 'Mercedes', year: 2004, price: 12000, owner: 'Laura Schmidt' },
+			{ id: 7, brand: 'Opel', year: 2018, price: 18500, owner: 'Robert Taylor' },
+			{ id: 8, brand: 'Audi', year: 2004, price: 9800, owner: 'Sophie Brown' },
+			{ id: 9, brand: 'Mercedes', year: 2000, price: 6500, owner: 'Daniel Clark' },
+			{ id: 10, brand: 'BMW', year: 2018, price: 34000, owner: 'Anna Martinez' },
+			{ id: 11, brand: 'BMW', year: 2004, price: 13500, owner: 'James Anderson' },
+			{ id: 12, brand: 'BMW', year: 2000, price: 7200, owner: 'Julia White' }
+		];
+
+
+		const app = createApp({
+			data() {
+				return {
+					selectedBrand: null,
+					selectedYear: null,
+				}
+			},
+			methods: {
+				clear(value) {
+					if (this.selectedBrand == value) this.selectedBrand = null
+					if (this.selectedYear == value) this.selectedYear = null
+				}
+			},
+			computed: {
+
+				// 1:38 modernized version
+				uniqueBrandList() {
+					return Array.from(new Set(cars.map((car) => car.brand)))
+				},
+				uniqueYearList() {
+					return Array.from(new Set(cars.map((car) => car.year)))
+				},
+
+				filteredCarsList() {
+					return cars.filter(car =>
+						(!this.selectedBrand || car.brand === this.selectedBrand) &&
+						(!this.selectedYear || car.year === this.selectedYear))
+				},
+
+
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+
+
+	<!-- 7  1:49  -->
+	<!-- <div id="app">
+		<label>
+			Name
+			<br>
+			<input type="text" v-model.trim="searchName" placeholder="search name"></label>
+		<br>
+
+		<h2>Names List</h2>
+		<hr>
+		<template v-if="showList.length" v-for="(item, ind) in showList" :key="item.id">
+			<span>{{ind+1}}) </span>{{item.name}}
+			<br>
+		</template>
+		<p v-else> empty list</p>
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const employees = [
+			{ id: 1, name: "Іванов І.І." },
+			{ id: 2, name: "Петров П.П." },
+			{ id: 3, name: "Скрипка С.П." },
+			{ id: 4, name: "Гончаренко Г.О." },
+			{ id: 5, name: "Івась І.І." }
+		];
+
+		const app = createApp({
+			data() {
+				return {
+					searchName: null
+				}
+			},
+			methods: {
+			},
+			computed: {
+				showList() {
+					let filteredList = employees
+					if (this.searchName) {
+						const text = this.searchName.toLowerCase()
+						filteredList = employees.filter((item) => item.name.toLowerCase().includes(text))
+					}
+					return filteredList
+				}
+
+			}
+		})
+		app.mount('#app')
+	</script> -->
+
+
+	<!--   2:00  -->
+	<!-- <div id="app">
+		<form @submit.prevent>
+
+			<h1>Form Registration</h1>
+
+			<label>
+				Name
+				<input type="text" v-model.trim="user.name" placeholder="user name">
+			</label>
+
+			<br>
+
+			<label>
+				Year
+				<input type="number" v-model.number="user.year" placeholder="user name">
+			</label>
+
+			<br>
+
+			<select v-model="user.type">
+				<option :value="null">All type</option>
+				<option></option>
+			</select>
+
+			<br>
+
+			<label>
+				Has car
+				<input type="checkbox" v-model="user.auto">
+			</label>
+
+			<br>
+
+			<fieldset>
+				Gender
+				<br>
+
+				<label>
+					<input type="radio" v-model="user.gender" name="gender" checked>
+				</label>
+
+				<label>
+					<input type="radio" v-model="user.gender" name="gender">
+				</label>
+
+			</fieldset>
+		</form>
+
+		{{user}}
+	</div>
+
+	<script>
+		const { createApp } = Vue
+
+		const defaultUserData = {
+			name: null,
+			year: null,
+			type: null,
+			auto: false,
+			gender: null,
+		} 
+
+	//! 2:09
+
+	// const userTypesList =
+
+	const app = createApp({
+	data() {
+	return {
+	user: { ...defaultUserData }
+	}
+	},
+	methods: {
+	},
+	computed: {
+	}
+	})
+	app.mount('#app')
+	</script>
+-->
+	<!--
+		===============================================================================
+		 Задача 2. З клавіатури вводиться температура. Змінювати колір фону у залежності від значення:
+	• менше нуля – білий -frost
+	• від 0 до 10 – синій -low,
+	• від 11 до 22 – зелений -middle
+	• вище 22 – червоний -high
+	Реалізувати з класами.
+	<div id="app">
+		<label :class="temperatureClasses">
+			Temperature
+			<input :class="temperatureClasses" type="number" v-model.number="temperature">
+		</label>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					temperature: '',
+				}
+			},
+			methods: {
+			},
+			computed: {
+				temperatureClasses() {
+					if (this.temperature === '') return
+
+					let currentClass = null
+					if (this.temperature < 0) currentClass = 'frost'
+					else if (this.temperature < 10) currentClass = 'low'
+					else if (this.temperature < 22) currentClass = 'middle'
+					else currentClass = 'high'
+					return currentClass
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+		.frost {
+			background-color: rgb(0, 229, 255);
+		}
+
+		.low {
+			background-color: blue;
+		}
+
+		.middle {
+			background-color: green;
+		}
+
+		.high {
+			background-color: red;
+		}
+	</style> -->
+	<!-- 
+	===============================================================================
+	<br>
+	Задача 1. З клавіатури вводиться довжина у сантиметрах. Виводити скільки це метрів, кілометрів.
+	<br>
+	<div id="app">
+
+		<label>
+			input sm value
+			<input type="number" v-model="cm">
+		</label>
+
+		<div v-if="cm">
+			<div>meters <strong> {{meters}} </strong></div>
+			<div>kilometers <strong>{{kilometers}}</strong></div>
+		</div>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					cm: ''
+				}
+			},
+			methods: {
+			},
+			computed: {
+				meters() {
+					return (this.cm / 100).toFixed(3)
+				},
+				kilometers() {
+					return (this.cm / 100000).toFixed(5)
+				},
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+	<!-- ===============================================================================
+	<br>
+	Задача 2.
+	З клавіатури вводиться температура.
+	Змінювати колір фону у залежності від значення:
+	менше нуля – білий
+	від 0 до 10 – синій,
+	від 11 до 22 – зелений
+	вище 22 – червоний
+	Реалізувати з класами і стилями.
+	<br>
+	<div id="app">
+		<label>
+			input temperature value
+			<input type="number" :class="currentTemperatureClass" :style='{backgroundColor: currentTemperatureStyle}' v-model.number="temperature">
+		</label>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					temperature: '',
+				}
+			},
+			methods: {
+			},
+			computed: {
+				currentTemperatureClass() {
+					if (this.temperature === '') return
+					let currentClass = null
+					if (this.temperature < 0) currentClass = 'white'
+					else if (this.temperature < 10) currentClass = 'blue'
+					else if (this.temperature < 22) currentClass = 'green'
+					else currentClass = 'red'
+					return currentClass
+				},
+				currentTemperatureStyle() {
+					return this.currentTemperatureClass
+				}
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+		.white {
+			background-color: rgb(0, 229, 255);
+		}
+
+		.blue {
+			background-color: blue;
+		}
+
+		.green {
+			background-color: green;
+		}
+
+		.red {
+			background-color: red;
+		}
+	</style> -->
+	<!-- ===============================================================================
+	<br>
+	Задача 3.
+	Вводиться дозволена швидкість і поточна швидкість авто.
+	Якщо не введено дозволену швидкість, то елемент введення поточної швидкості заблокований.
+	Якщо швидкість менше 50% дозволеної,
+	то колір input – оранжевий,
+	якщо від 50% до 100% - зелений,
+	вище 100% - червоний.
+	Якщо значення вище 90% починає блимати повідомлення «Увага!»
+	<br>
+	<div id="app">
+		<label>
+			Вводиться дозволена швидкість
+			<input type="number" v-model.number="car.maxSpeed">
+		</label>
+		<br>
+
+		<label>
+			Вводиться поточна швидкість авто
+			<input type="number" :class="currentSpeedClass" :disabled="!car.maxSpeed" v-model.number="car.currentSpeed">
+		</label>
+		<div v-if="shouldShowWarning" :class=" { 'blinking': shouldShowWarning }">
+			⚠️ Увага! Перевищення швидкості!
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					car: {
+						maxSpeed: null,
+						currentSpeed: null,
+					},
+				}
+			},
+			methods: {
+			},
+			computed: {
+				currentSpeedClass() {
+					if (!this.car.maxSpeed || !this.car.currentSpeed) return false
+
+					let currentClass = null
+					if (this.car.currentSpeed < this.car.maxSpeed / 2) currentClass = 'orange'
+					else if (this.car.currentSpeed <= this.car.maxSpeed) currentClass = 'green'
+					else if (this.car.currentSpeed > this.car.maxSpeed) currentClass = 'red'
+
+					return currentClass
+				},
+
+				shouldShowWarning() {
+					if (!this.car.maxSpeed || !this.car.currentSpeed) return false;
+					return (this.car.currentSpeed / this.car.maxSpeed) > 0.9;
+				},
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+		.orange {
+			background-color: orange;
+		}
+
+		.green {
+			background-color: green;
+		}
+
+		.red {
+			background-color: red;
+		}
+
+		.blinking {
+			animation: blink 0.6s infinite;
+		}
+
+		@keyframes blink {
+
+			0%,
+			50% {
+				opacity: 1;
+			}
+
+			51%,
+			100% {
+				opacity: 0.3;
+			}
+		}
+	</style> -->
+	===============================================================================
+	<br>
+	Задача 4. Однорядковий сапер. Однорядкова таблиця, до клітинок якої додано інформацію про наявність міни (використати
+	атрибути). Спочатку клітинки сірі. При натисненні на клітинку аналізується чи є там міна і тоді колір стає червоним,
+	якщо немає – зеленим. Додати можливість відкриття усіх сусідніх незамінованих клітинок при відкритті незамінованої
+	клітинки.
+	<br>
+	<div id="app">
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+
+				}
+			},
+			methods: {
+			},
+			computed: {
+
+			}
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+
+	</style>
+	<!-- template -->
+	<!-- ===============================================================================
+	<br>
+	Задача 
+	<br>
+	<div id="app">
+		
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+
+				}
+			},
+			methods: {
+			},
+			computed: {
+
+			}
+		})
+
+		app.mount('#app')
+	</script>
+	
+	<style>
+	
+	</style> -->
+
+</body>
+
+</html>

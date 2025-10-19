@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vite App</title>
+	<link href="/src/assets/main.css" rel="stylesheet">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+	<!-- http://localhost:5173/lessons/lesson1/index.html -->
+	<!-- <div id="app">
+		<div>
+			<h1>{{message}}</h1>
+			<label>
+				First
+				<input type="number" v-model="num1" />
+			</label>
+			<label>
+				Second
+				<input type="number" v-model="num2" />
+			</label>
+		</div>
+		<div>
+			<div>
+				Sum: <span>{{ num1 + num2 }}</span>
+			</div>
+			<div>
+				Prod: <span>{{ num1 * num2 }}</span>
+			</div>
+			<button @click="onClear">Clear</button>
+			<hr>
+			<img v-bind:src="imageSrc" class="size-20 " alt="logo">
+
+			<hr>
+			<a :href="link.url" :target="link.target">{{link.text}}</a>
+			<hr>
+			<a :[link.attr_name]="link.url" :id="link.target" :target="link.target">{{link.text}}</a>
+			<hr>
+			<a v-bind="newLink"></a>
+
+			<hr>
+			<label>Your full name<input type="text" v-model="userName"></label>
+			<label>Your year of birth<input type="number" min="1920" max="2025" v-model.number.lazy="userAge"></label>
+			<div v-show="userAge">
+				{{userName}} - {{currentAge}} years old
+			</div>
+		</div>
+	</div> -->
+
+	<!-- 
+{{message}} - interpolation
+
+v-bind:src="imageSrc" - interpolation attributes
+:src="imageSrc" - short attributes interpolation 
+:href="link.url"
+:target="link.target"
+
+:[link.attr_name]="link.url" -dynamical attributes
+
+v-model="num1" - двусьороння прив'язка данних
+виводяться реактивні данні, при їхній зміні оновлюється весь інтерфейс з оновленимим данними
+
+v-model.lazy - спрацьовує тільки після виходу з елемента(onChange) або після натискання enter
+v-model.number - output number
+v-model.trim - delete space
+
+v-html: <span v-html="rawHtml"></span> - виводяться html -(not recomended xss attacks)
+-->
+	<!-- <script>
+		// 1 import createApp
+		const { createApp } = Vue
+		// 2 create app object
+		const app = createApp({
+			// 4. data model, variables
+			data() {
+				return {
+					num1: 0,
+					num2: 0,
+					message: "Hello!",
+					imageSrc: "../../src/assets/logo.svg",
+					link: {
+						attr_name: 'href',
+						url: 'google.com',
+						text: 'google Link',
+						target: '_blank'
+					},
+					newLink: {
+						url: 'google.com',
+						id: 'container',
+						class: "wrapper",
+						target: '_blank',
+						text: 'google Link',
+
+					},
+					userName: null,
+					userAge: null,
+
+				};
+			},
+			// methods
+			methods: {
+
+				// method, not use arrow functions
+				onClear() {
+					this.num1 = 0;
+					this.num2 = 0;
+				},
+			},
+			computed: {
+				currentAge() {
+					if (!this.userAge) return
+					const currentDate = new Date().getFullYear()
+					return currentDate - this.userAge
+				}
+			}
+		})
+
+		// 3. montage
+		app.mount('#app')
+
+		// data() -function return object with reactive data-items
+
+
+	</script> -->
+
+	<!-- computed -->
+	<div id="app3">
+		<div>
+			<label>Passengers number : <input type="number" v-model.number="passNumber"></label>
+			<div> Need buses : <span>{{needBuses}}</span></div>
+			<label>Buss number : <input type="number" v-model.number="needBuses"></label>
+
+			<br>
+			<button @click="onClear">CLear</button>
+		</div>
+	</div>
+
+
+	<script>
+		const { createApp } = Vue
+		const busPlaces = 20
+
+		const app3 = createApp({
+			data() {
+				return {
+					passNumber: 0
+				};
+			},
+			methods: {
+				getBussesNumber() {
+					return Math.ceil(this.passNumber / busPlaces)
+				},
+
+				onClear() {
+					this.passNumber = 0
+				}
+			},
+			computed: {
+				needBuses: {
+					get() { return this.getBussesNumber() },
+					set(bussNumValue) {
+						this.passNumber = busPlaces * bussNumValue
+					}
+				},
+				// if we need 	const busPlaces = 20 inside (not recomend )
+				// busPlaces(){
+				// 	return 20
+				// }
+			}
+		})
+		app3.mount('#app3')
+
+	</script>
+
+
+	<!-- events 
+	old 
+	v-on:event = "function"
+	new
+	@event="function"
+	
+	functions is only in methods
+	
+	-->
+	<!-- <div id="app3">
+		<div>
+			<label> Full Name <input type="text" v-model.lazy="fullName"></label>
+			<hr>
+			<div>first name: <span>{{firstName}}</span></div>
+			<div>Second name: <span>{{secondName}}</span></div>
+		</div>
+
+		<br>
+		<hr>
+		<br>
+
+		<div>
+			<label>Dollar Course : <input type="number" v-model.number.lazy="courseDollar"></label>
+			<br>
+			<label>Uan Value : <input type="number" v-model.number.lazy="sumUan"></label>
+
+			<div> you have - {{currentDollars}}$
+			</div>
+
+			<br>
+			<hr>
+			<br>
+
+			<label>Start : <input type="number" v-model.number.lazy='start'></label>
+			<br>
+			<label>End : <input type="number" v-model.number.lazy='end'></label>
+			<div>Random number : {{generateNumber}}</div>
+		</div>
+
+	</div>
+
+
+	<script>
+		const { createApp } = Vue
+		const app3 = createApp({
+			// 4. data model 
+			data() {
+				return {
+					firstName: null,
+					secondName: null,
+					sumUan: null,
+					courseDollar: 44,
+					start: 1,
+					end: 10,
+				};
+			},
+			// methods
+			methods: {
+			},
+
+			computed: {
+				currentDollars() {
+					return (this.sumUan / this.courseDollar).toFixed(2)
+				},
+				generateNumber() {
+					return this.start + Math.floor(Math.random() * (this.end - this.start + 1))
+				},
+				//! object - with get|set 2:54min(lesson1)
+				fullName: {
+					get() {
+						if (this.firstName && this.secondName) {
+							return `${this.firstName} ${this.secondName}`
+						}
+						return null
+					},
+					set(newValue) {
+						if (newValue) {
+							const splitterValues = newValue.split(' ')
+							if (splitterValues.length == 2) {
+								this.firstName = splitterValues[0]
+								this.secondName = splitterValues[1]
+							}
+						}
+					}
+				}
+			}
+		})
+		// 3. montage
+		app3.mount('#app3')
+
+	</script> -->
+
+
+
+
+	<!-- <div id="app"></div> -->
+	<script type="module" src="/src/main.js"></script>
+
+</body>
+
+</html>

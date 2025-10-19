@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<title>Vite App</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+	<!-- <div id="app"> -->
+	<!-- <label for="">
+			<input type="number" v-model.number.lazy="startRange">
+		</label>
+		<label for="">
+			<input type="number" v-model.number.lazy="endRange">
+		</label>
+		<div>
+			{{getRandomNum()}}
+			{{myRandomNum}}
+			{{currentYear}}
+			{{myRandomNumWithYear}}
+		</div> -->
+	<!-- <label>
+			passengers number
+			<input type="number" v-model="passengersNumber">
+		</label>
+		<div>
+			buses number {{busesNumber}}
+		</div>
+		<label>
+			max passengers number
+			<input type="number" v-model="busesNumber">
+		</label>
+		<button @click="onClear">CLear all</button> -->
+	<!-- <div> -->
+
+
+
+	<!-- <script defer>
+				const { createApp } = Vue
+
+				const placesInBus = 20
+				createApp({
+					data() {
+						return {
+							passengersNumber: 0
+						}
+					},
+					computed: {
+						// currentYear() {
+						// 	return new Date().getFullYear()
+						// },
+						// myRandomNum() {
+						// 	return this.startRange + Math.floor(Math.random() * (this.endRange - this.startRange + 1))
+						// },
+						// myRandomNumWithYear() {
+						// 	return this.myRandomNum + this.currentYear
+						// },
+						// buses
+						busesNumber: {
+							get() {
+								return this.getBusesNumber()
+							},
+							set(busesNumVal) {
+								this.passengersNumber = placesInBus * busesNumVal
+							}
+						}
+					},
+					methods: {
+						// getRandomNum() {
+						// 	return this.startRange + Math.floor(Math.random() * (this.endRange - this.startRange + 1))
+						// }
+						// buses
+						getBusesNumber() {
+							return Math.ceil(this.passengersNumber / placesInBus)
+						},
+						onClear() {
+							this.passengersNumber = 0
+						},
+					},
+				}).mount('#app')
+			</script> -->
+	<!-- !!!!!!!! -->
+	=====================================================================
+
+	<!-- Задача 1. Вводиться кількість пасажирів. Вивести:
+	скільки потрібно автобусів (кожен автобус на 20 місць)
+	скільки пляшок води (кожному пасажиру 2 пляшки)
+	скільки бутербродів (кожному пасажиру 3 бутерброди)
+	<div id="app">
+		<h2>Input</h2>
+		<label>
+			passengers number
+			<input type="number" v-model.number="passengersNumber">
+		</label>
+		<h2>Output</h2>
+		<p>bussesNumber - {{bussesNumber}}</p>
+		<p>bottleWaterNumber - {{bottleWaterNumber}}</p>
+		<p>sandwidchNumber - {{sandwidchNumber}}</p>
+	</div>
+	<script>
+		//1 add VUE
+		const { createApp } = Vue
+		const placesInBus = 20
+		const waterPerPassenger = 2
+		const sandwidchPerPassenger = 3
+		// 2 create
+		const app = createApp({
+			data() {
+				return {
+					passengersNumber: 0
+				}
+			},
+			computed: {
+				bussesNumber() {
+					return Math.ceil(this.passengersNumber / placesInBus)
+				},
+				bottleWaterNumber() {
+					return this.passengersNumber * waterPerPassenger
+				},
+				sandwidchNumber() {
+					return this.passengersNumber * sandwidchPerPassenger
+				},
+			}
+		})
+		//3 mount
+		app.mount('#app')
+	</script> -->
+	=====================================================================
+	<!-- Задача 2. Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима – пальто, літо – шорти ….).
+	Також автоматично виводити зображення з відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс, …).
+	<div id="app">
+		<h2>Input</h2>
+		<label>
+			month number
+			<input type="number" min="0" max="12" step="1" maxlength="2" v-model.number.lazy="monthNumber">
+		</label>
+		<h2>Output</h2>
+		<div v-if="monthNumber">
+			<p>рекомендований одяг - {{currentSeason.clothes}}</p>
+			<img :src="currentSeason.img.src" :alt="currentSeason.img.alt">
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					monthNumber: null
+				}
+			},
+			computed: {
+				currentSeason() {
+					if (this.monthNumber < 0 || this.monthNumber > 12) return
+					let season
+
+					switch (this.monthNumber) {
+						case 12:
+						case 1:
+						case 2: season = { clothes: 'пальто', img: { src: 'add/some/winter/url', alt: 'winter' } }
+							break
+						case 3:
+						case 4:
+						case 5: season = { clothes: 'футболка', img: { src: 'add/some/spring/url', alt: 'spring' } }
+							break
+						case 6:
+						case 7:
+						case 8: season = { clothes: 'майка', img: { src: 'add/some/summer/url', alt: 'summer' } }
+							break
+						case 9:
+						case 10:
+						case 11: season = { clothes: 'вітровка', img: { src: 'add/some/fall/url', alt: 'fall' } }
+							break
+						default: season = { clothes: 'uncorrect', img: { src: 'none', alt: 'none' } }
+					}
+					return season
+				},
+			},
+			methods: {
+				getCurrentSeason() {
+					this.currentSeason()
+				}
+			}
+		}).mount('#app')
+	</script> -->
+	=====================================================================
+	<!--  Задача 3. Задано початок та кінець діапазону.
+	При натисканні на кнопку випадковим чином генерувати значення з вказаного діапазону та відображати його.
+
+<div id="app">
+		<h2>Input</h2>
+		<label>
+			start
+			<input type="number" v-model.number="start">
+		</label>
+		----
+		<label>
+			end
+			<input type="number" v-model.number="end">
+		</label>
+		<button @click="getRandomNumber()">Click me</button>
+		<h2>Output</h2>
+		<div v-if="randomNumber">randomNumber - {{randomNumber}}</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					start: 1,
+					end: 10,
+					randomNumber: null
+				}
+			},
+			methods: {
+				getRandomNumber() {
+					if (this.start > this.end) {
+						const tmp = this.start
+						this.start = this.end
+						this.end = tmp
+					}
+					this.randomNumber = this.start + Math.floor(Math.random() * (this.end - this.start + 1))
+				}
+			},
+
+		}).mount('#app')
+	</script> -->
+	=====================================================================
+	<!-- Задача 4. “Рахунок у банку”
+	Вимоги:
+	1) Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.
+	2) Сума автоматично переводиться у долари та євро (фіксований курс задається у data).
+	3) можливість зарахувати суму (контролювати, щоб не була від’ємною)
+	4) можливість зняти (щоб не можна зняти більше ніж є на рахунку)
+	5) при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)
+
+	При зміні суми :
+	- якщо було зняття, то суму відоражати червоним
+	- якщо було зарахування, то суму відображати зеленим
+	Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим
+
+	<div id="app">
+		<h2>Input</h2>
+		<div>
+			<label>
+				add money
+				<input type="number" v-model.number="addMoney">
+			</label>
+			<button @click="increaseMoney">add money</button>
+		</div>
+
+		<div>
+			<label>
+				take money
+				<input type="number" v-model.number="takeMoney">
+			</label>
+			<button @click="decreaseMoney">take money</button>
+		</div>
+		<h2>Output</h2>
+		<div>
+			<label>
+				Total sum in UAN
+				<input type="number" v-model.number="sum" disabled>
+			</label>
+			<label>
+				Total sum in DOLLAR
+				<input type="number" v-model.number="dollars" disabled>
+			</label>
+			<label>
+				Total sum in EURO
+				<input type="number" v-model.number="euro" disabled>
+			</label>
+		</div>
+		<div>
+			3% Percent = {{percent}}
+		</div>
+
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const euroPricePerUAN = 48
+		const dollarPricePerUAN = 42
+		const app = createApp({
+			data() {
+				return {
+					sum: 0,
+					addMoney: null,
+					takeMoney: null,
+				}
+			},
+			methods: {
+				increaseMoney() {
+					this.sum += Math.abs(this.addMoney)
+					this.sum -= this.percent
+					this.clearfield(this.addMoney)
+				},
+
+				decreaseMoney() {
+					if (this.sum - Math.abs(this.takeMoney) > 0) {
+						this.sum -= Math.abs(this.takeMoney)
+						this.sum -= this.percent
+						this.clearfield(this.takeMoney)
+					}
+				},
+
+				clearfield(el) {
+					el = 0
+					this.percent = 0
+				},
+
+			},
+			computed: {
+				euro() {
+					return this.sum / euroPricePerUAN
+				},
+				dollars() {
+					return this.sum / dollarPricePerUAN
+				},
+				percent() {
+					let res = 0
+					if (this.addMoney > 0) {
+						res = this.addMoney * 0.03
+						// need 3% of this value
+						this.clearfield(this.takeMoney)
+					}
+					if (this.takeMoney > 0) {
+						res = this.takeMoney * 0.03
+						this.clearfield(this.addMoney)
+					}
+					// this.sum -= res
+					return res
+				}
+			}
+		}).mount('#app')
+	</script> -->
+
+	=====================================================================
+	<!-- <br>
+	Задача 5. Додаток містить масив об’єктів (логін, пароль) -- інсуючі логіни і паролі.
+	Користувач вводить логін і пароль, а програма повідомляє чи може користувач бути авторизованим (чи є він одним з
+	масиву).
+
+	<div id="app">
+		<h2>Input</h2>
+
+		<div>
+			<label>
+				логін
+				<input type="text" v-model.trim="login">
+			</label>
+		</div>
+		<div>
+			<label>
+				пароль
+				<input type="text" v-model.trim="pass">
+			</label>
+		</div>
+
+		<h2>Output</h2>
+		<div>status - {{authorization}}</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const users = [
+			{ login: 'Max', pass: '1234' },
+			{ login: 'Den', pass: '9a' },
+			{ login: 'Sem', pass: '312a' },
+		]
+		const app = createApp({
+			data() {
+				return {
+					login: '',
+					pass: '',
+				}
+			},
+
+			computed: {
+				authorization() {
+					if (!this.login || !this.pass) return 'Please enter login and password'
+					const user = users.find(
+						u => u.login === this.login && u.pass === this.pass
+					)
+					return user ? 'Yes, you can authorize' : 'No, access denied'
+				}
+			}
+		}).mount('#app')
+	</script> -->
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vite App</title>
+	<link href="../../src/assets/main.css" rel="stylesheet">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<!-- http://localhost:5173/lessons/lesson1/ex1.html -->
+
+<body>
+	<div id="app" class="max-h-dvh">
+		<div>
+			<label>Euro Rate <input type="number" v-model="euroRate">E</label>
+			<hr>
+			<label>Dollar Rate <input type="number" v-model="dollarRate">$</label>
+			<hr>
+			<label>Grn value <input type="number" @focus="onFocus" v-model.lazy="grnSum">uan</label>
+		</div>
+		<br>
+		<!-- v-if="dollarRate && grnSum" -->
+		<div class="flex space-y-4 gap-4">
+			<div>
+				<div>total Dollars {{divideDollarTOUan}}</div>
+			</div>
+			<hr>
+			<div>
+				<div>total Euro <input type="number" :value="divideEuroTOUan"></div>
+			</div>
+		</div>
+		<button class=" border-2 rounded-[14px] px-4 py-2 
+	 border-pink-400" @click="onClear">Clear</button>
+
+
+	</div>
+
+	<!-- 
+{{message}} - interpolation
+
+v-bind:src="imageSrc" - interpolation attributes
+:src="imageSrc" - short attributes interpolation 
+:href="link.url"
+:target="link.target"
+
+:[link.attr_name]="link.url" -dynamical attributes
+
+v-model="num1" - двусьороння прив'язка данних
+
+виводяться реактивні данні, при їхній зміні оновлюється весь інтерфейс з оновленимим данними
+
+
+v-model.lazy - спрацьовує тільки після виходу з елемента або після натискання enter
+v-html: <span v-html="rawHtml"></span>
+
+-->
+	<script>
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+					dollarRate: 43,
+					euroRate: 45,
+					grnSum: null,
+				};
+			},
+			methods: {
+				onClear() {
+					this.grnSum = 0;
+					this.dollarSum = 0;
+					this.dollarSum = 0;
+				},
+				onFocus() {
+					this.grnSum = 0
+				}
+
+
+				// use this function in computed
+				// call in code divideDollarTOUan() 
+				// divideDollarTOUan() {
+				// 	return (this.grnSum / this.dollarRate).toFixed(2)
+				// }
+
+			},
+
+			computed: {
+				// return and save result, можна тільки зчитувати данні(змінювати не можна!)
+				// call in code divideDollarTOUan
+				divideDollarTOUan() {
+					return (this.grnSum / this.dollarRate).toFixed(2)
+				},
+				divideEuroTOUan() {
+					return (this.grnSum / this.euroRate).toFixed(2)
+				},
+
+			},
+		})
+		// 3. montage
+		app.mount('#app')
+
+	</script>
+
+	<script type="module" src="../../src/main.js"></script>
+
+</body>
+
+</html>

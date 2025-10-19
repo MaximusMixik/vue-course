@@ -1,0 +1,784 @@
+lesson 1 (create app, v-bind:src, :src, v-model, methods, computed, events)
+
+	create app
+		<div id="app">
+			<div>
+				<h1>{{message}}</h1>
+				<label>
+					First
+					<input type="number" v-model.number="num1" />
+				</label>
+			</div>
+		</div>
+
+	interpolation {{}}, v-bind:arrtName
+		{{message}} - interpolation
+
+		attributes interpolation
+		v-bind:src="imageSrc" - interpolation attributes
+		:src="imageSrc" - short attributes interpolation 
+		:href="link.url"
+		:target="link.target"
+		:[link.attr_name]="link.url" -dynamical attributes
+
+	data
+			data() {
+				return {
+					cmSize: null,- для размеров в числах лучше null
+					name: '', -для имен и названий пустая строка
+				};
+			},
+
+	v-model
+		v-model="num1" - двусьороння прив'язка данних(при зміні змінюється і для інших виводів)
+		виводяться реактивні данні, при їхній зміні оновлюється весь інтерфейс з оновленимим данними
+
+		v-model.lazy - спрацьовує тільки після виходу з елемента(onChange) або після натискання enter
+		v-model.number - дозволяє вводити тільки числа (number) приходять тільки числа parseInt()
+		v-model.trim - delete space
+
+	v-html: <span v-html="rawHtml"></span> - виводяться html -(not recomended xss attacks)
+
+	methods
+		methods: {} - функції які постійно викликаються при зміні елементів/ та повторних викликах (getRandomNumber - приклад назви функцій) виклик функції з дужками {{getRandomNumber()}}
+		@click="onClear" - виклик функції при події (тільки у методах)
+
+	computed
+		computed: {}  - зберігає значення при першому виклику функції та при зміні елементів, оптимізація за рахунок хешування отриманного значення (myRandomNumber - приклад назви функцій) - виклик функції без дужок {{myRandomNumber}}, не може приймати якісь вхідні параметри(аргументи)!! обчислення на основі інших значень отриманих з data.
+
+		Також функція може бути об'єктом, приклад  computed: {fullName: { get(){} set(){}}}  
+
+lesson 2 (v-if, template, v-show, v-for,  :class, :style)
+
+	v-if, v-else-if, v-else (render elements)
+		<button v-if="isValidAge">Registration</button>
+			<div v-else-if="displayMessage"> {{personName}}, sorry you very young</div>
+			<div v-else> other message</div>
+
+				computed: {
+					isValidAge() {
+						return this.personAge >= minUserAge
+					},
+					displayMessage() {
+						if (isNaN(parseInt(this.personAge))) return false
+						return !this.isValidAge
+					}
+					}
+
+	template (50min)
+		wrapper - not rendering element
+
+	v-show (52min) (hide elements/ display:none)
+	
+	v-for(1:00)
+		<div v-for="i in 10">{{i}} - {{getRandomNumber()}}</div>
+
+		with wrapper (not show)
+			<template v-for="i in 5">
+				<div> {{i}}</div>
+				<h2> title {{i}}</h2>
+				<div>{{getRandomNumber()}}</div>
+			</template>
+
+		<div v-for="(el, ind) in myNumbers" :key="ind">
+			{{ind+1}}) {{el}}
+		</div>
+
+		:key="" - бажано додавати унікальну id, якщо немає то просто індекс
+
+		object iteration ( 1:54) - 
+			<template v-for="(val, key, ind) in book" :key="ind"> 
+				<div> {{ind+1}}) {{key}} : {{val}} </div>
+			</template>
+		
+	:class (2:00)
+			1   class="class__name" - statick
+			2.  :class="myClass" - dynamical 
+			3. :class="['static_class', myClass , mySecondClass]" -  combined array(statick and dynamical)
+			4.  :class="{
+				myClass: condition,
+				myNextClass: condition,
+			}" 
+				condition - логічний вираз: true– застосовуємо, false – не застосовуємо
+
+			5.  :class="{
+				[myClass]: condition,
+				class: condition,
+			}" dynamical condition
+
+				[myClass]- вказуємо клас, що застосовуємо у залежності від умов
+				condition - логічний вираз: true– застосовуємо, false – не застосовуємо
+
+			6. :class="['static_class', myClass , {
+				mySecondClass :condition,
+				[myThirdClass] :condition,
+			}]" - combined array of classes and dynamical condition classes
+ 
+			7.  class="class__name" :class="myClass"  stastic and dinamic
+
+	:style (2:33)
+			1. style="font-size:16px; border-radius:8px;" - static 
+			2. :style="{
+			fontSize: customFontSize,
+			borderRadius: customBorderSize" 
+			 } - dynamical
+
+lesson 3 (practice)
+	1:09 Задача-1 З клавіатури вводиться см(sm to meter and kilometer)
+	17:15 Задача-2 Введення з клавіатури значень температури (класси)
+	30:45 Задача-3 Введення з клавіатури значень температури (стилями)
+	35:00 Задача-4 Однорядковий сапер
+	58:35 Задача-5 Список спорцменів
+	1:15:00 Задача-8 Фільтри пошуку 
+	1:48:35 Задача-7 Динамічний пошук
+	2:01:01 Задача-18 Реєстраційна форма 
+	2:25:11 Задача-10 Хрестики нулики
+
+lesson 4 ($refs, hooks, watch, CLI project, props, $emit)
+	1:11 ref Посилання на елемент (console.log(this.$refs))
+		add to tag ref="age"
+		use in vue this.$refs.age.focus() or this.$refs.btn.style.color = 'red'
+
+		this.$refs["nameInput"].focus(); 
+		this.$refs.nameInput.focus();
+
+		14:27 Приклад ref in for
+		17:27 Приклад ref 
+
+	24:40 hooks Хуки життевого циклу
+		30:18 Приклад №1 Хуки created (fetch data load)
+		33:35 Приклад №2 Хуки mounted (focus on first element after upload page)
+		36:25 Приклад №3 Хуки mounted(load inputs data from localStorage)
+		38:28 Приклад №4 Хуки
+
+		created - коли не потрібна взаємодія з ДОМ
+		mounted - коли потрібна взаємодія з ДОМ
+
+	46:10 watch Спостерігачі watch:{} (data, computed)
+		спостерігає за зміною змінної, коли змінюєтья автоматично викликається функція
+			watch:{
+				userName(newVal, oldVal){
+					localStorage.setItem('userName', newVal )
+				},
+			} ,
+
+			якщо потрібно відслідковувати елемент обєкту 'user.name'(newVal, oldVal){}
+
+		52:10 Приклад watch
+		59:10 Приклад watch для елементів об'єктів
+		1:05:45 Відслідковування одразу всіх полів обєкту
+			watch:{
+					user:{
+							handler(newVal, oldVal){
+							localStorage.setItem('user', JSON.stringify(this.user) )
+						},
+						deep:true,
+					},
+				} ,
+
+	1:11:33 Компоненти. Вступ
+
+	1:21:00 Створення проекту CLI
+		vue create . //create in current folder
+
+		npm run serve
+
+			- Local:   http://localhost:8080/    - standard localhost
+			- Network: http://192.168.31.239:8080/   - if we need check on other devices in main network
+
+		main.js - main app file 
+
+		snippent
+				vbase - main template 
+				vdata -data template
+
+	1:34:00 Useful plugins
+
+	2:06:50 props Предача вхідних властивостей
+		2:14:03 Приклад props 
+			:workerAge="24" - use if we need variables or other values (var, number, string)
+			workerName="MaximusMixik"  -use if we need default type (only string)
+			worker-name="MaximusMixik"  - or kebab-case
+			якщо нам потрібно передати обєкт чи массив !!!
+				workerName: {
+					type: Object,
+					default: () => ({})
+				},
+
+				Params
+					type: Number,
+					default: 100,
+					required: true,
+					validator(value){return [someValue, someValue].includes(value)}
+
+	2:27:40 $emit створення кастомних подій (для взаємодій між собою та перебудови компонентів)
+		В дочірньому елементі
+			this.$emit(назваНовоїКастомноїПодії, данніЩоПередаються );
+
+			methods: {
+				onDecrease(){ 	this.$emit("onRemoveScore"); }
+			}
+
+		В бітьківському елементі на компоненті
+			@onRemoveScore="inc"
+			@назваНовоїКастомноїПодії="обробник" -(обробник-метод який викликається)
+
+		2:31:33 Створення події (коунтер) Приклад
+			2:40 Схема
+
+		2:46 Передача id у батьківський компонент (бажано - id, ind ...)
+			2:48 Приклад
+
+		3:10 Передача обєкту з багатьма данними у  батьківський компонент
+			В дочірньому елементі передаємо обєкт
+				methods: {
+					onDecrease(){ 	
+						this.$emit("onRemoveScore",
+						 {
+							searchId: this.product.id,
+							 num: 10
+							});
+							 }
+				}
+
+			В бітьківському елементі на компоненті
+				@onRemoveScore="inc"
+
+			В бітьківському методі приймаємо в аргументи обєкт
+				methods: {
+					inc({searchId, num}){ 
+						const prod = this.productsList.find((pr) => pr.id === searchId)
+						prod.quantity +=num
+					 }
+				}
+
+lesson 5 (practice)
+	1:45 Задача №1 (Google icons)
+	44:36 build and add to repository - щоб залити на гіт для показу (Треба поставити крапки в шляхах ./js and ./css)
+	1:02:08 Задача №6
+		2:10 покрокове пояснення 
+		2:20 передача данних до батькывського компоненту 
+			2 способи,
+
+				перший  через walker +$emit, якщо потрібно одразу змінювати стани
+					watch:{
+						wachedElement(newValue, oldValue){
+							this.$emit('customEventName', newValue) 
+						}
+					}
+					якщо потрібно передавати далі через компонент до батьківського
+					@customEventName = '$emit('customEventName', $event)
+
+					або якщо декілька параметрів потрібно передавати
+					@customEventName = '$emit('customEventName', {itemId:item.id, workerId:$event})
+
+				другий computed  get set, якщо після виконання 
+		2:38 видалення елементів зі списку
+			практичний варіант застосування прокидування до батьківського елементу (багато етапів)
+
+	2:30 якщо потрібно передавати далі через компонент до батьківського @customEventName = '$emit('customEventName', $event)
+	2:33 додавання декількох подій  $emit('customEventName', {itemId:item.id, workerId:$event})
+
+
+	id: new Date().getTime()
+
+	1:39 use Vue devtools extention 
+	2:17 скорочення шляхів для  
+	приклад import some from '@/constants/....' 
+
+	2:53 аналіз структури
+
+lesson 6 (props, $emits, vite,  v-model, v-model.properties, customModifiers v-model:properties.customModifiers,scss, images, firebase)
+	00:02 props
+	00:07 custom events ($emit), 
+	@someCustomEvent= "$emit($event)"
+	00:12 v-model and data to parent 
+			example
+				<input
+					:value="searchText"
+					@input="searchText=$event.target.value"
+				/>
+		00:16  data to parent elements (vue 2 example)
+		00:19  data to parent elements (vue 3 example)
+			props >ModelValue methids this.$emit("update:modelValue",data)
+		00:23  computed ModelValue
+			props >ModelValue methids this.$emit("update:modelValue",data)
+
+
+	00:27 vite project
+	00:35 task with color inputs
+		00:38 структура та підключення двухстороннього з'єднання v-model в батьківському та дочірньому + computed(set, get(){$emit}) 
+			<CustomInput1 v-model="chargeLevel" :status="colorStatus" /> - у батьківському
+
+			
+
+			<input
+				type="number"
+				:value="modelValue"
+				@input="$emit('update:modelValue', $event.target.value)" /> - в дочірньому
+
+			або через  v-model="currentValue"  та computed
+				<input type="text" v-model.number="currentValue" /> - в дочірньому
+				та
+				name: "CustomInput1",
+				props: {
+					modelValue: {
+						type: [Number, String],
+						default: "",
+					},
+				},
+				computed: {
+					currentValue: {
+						get() {
+							return this.modelValue;
+						},
+						set(newVal) {
+							this.$emit("update:modelValue", newVal);
+						},
+					},
+				},
+
+	00:46 передача параметрів
+	01:00 властивість для v-model:properties="dataModel" (передача та підв'язка декількох різних значень)
+	01:08 задача з передачею данних у батьківський компонент 
+	01:20 скорочений запис передачею одного обєкта 
+	01:25 кастомні модифікатори v-model.customModefires:
+		01:32 приклад з додаванням модифікатору для створення відступів за допомогою регулярного виразу
+
+	01:41 кастомні модифікатори для властивості
+		v-model:properties.customModefires 
+
+		<CustomInput v-model.check="userAge"  /> - check - on parent
+
+		props: {
+			modelModifiers: { //all modificators
+				default: () => ({}),
+			},
+		},
+		computed: {
+			currentValue: {
+				get() {
+					return this.modelValue;
+				},
+				set(newValue) {
+					if (this.modelModifiers.check) {  //our modificator name 
+						alert(111);
+					} else {
+						alert(222);
+					}
+					this.$emit("update:modelValue", newValue);
+				},
+			},
+		},
+
+	01:44 підключення стилів та препроцессорів, батьківські у яких все підключається index.scss
+
+	01:53 зображення, імпорт як дата(шлях)
+	02:00 deploy to firebase
+		02:08 deploy steps
+			пробел применить, стрелками листать, ентер принять
+ 
+lesson 7 (vuex, helpers)
+	00:01 vuex theory
+	00:18 flux architecture
+	00:18 create storage
+		00:19 state
+		00:22 getters
+		00:25 mutations
+		00:25 actions
+
+	00:33 приклад з розгортанням з vuex, create storage
+			в існуючому проекті npm install vuex@next --save
+			Створюємо файл налаштувань сховища app>store> index.js
+
+			in main.js
+				import { createApp } from 'vue'
+				import App from './App.vue'
+				import createStore from "./store";
+				console.log(createStore)
+
+				createApp(App).use(createStore).mount('#app')
+
+	00:44 state (like data)
+
+	00:48 getters (like computed)
+				00:51 getters state, decomposition !!!
+				00:55 getters return function !!!
+
+	01:01 $store.dispatch / mutation and action 
+	01:08 timeline in extention 
+
+	01:13 helpers
+	01:26 example task 
+		01:30 add vuex to project 
+		01:39 add mutations (мають працювати тiльки зi змiнами state)
+		01:53 список подій що будуть емітитись
+		02:06 зміст
+
+lesson 8 (practice - vuex, helpers)
+	00:01 task 1
+	00:11 task 2 (list with fultration)
+		00:13 vite install
+		00:17 vue vite devtools 
+		00:31 коли і навіщо потрібні локальні змінні (data)  
+		00:36 imitation upload files 
+			00:46 loading, error components (imitation)
+		01:01 workers List
+		01:12 короткий огляд пропрацьованних компонентів
+		01:14 фільтрація (через гетер)
+
+		01:21 фільтрація ( через пропс і еміт, для перевикористовуємого компонента)
+
+		01:28 зміна валюти
+			01:40 універсальний екшен для пропс
+			01:43 основна логіка перемикання валюти, !!!!
+			01:44 хелперс з конвертацією валюти
+			01:58 геттер обєкта з поточним курсом валют !!
+
+	02:00 вью граф
+	02:02 зміст по виконаній  задачі (вью граф)
+
+			02:06 перенесення логіки фільтрації в окремий файл
+
+lesson 9 (router)
+	00:01 router
+		00:03 add to app
+		00:10 create  app with router
+			00:14 dinamical path in router
+			00:16 syntah and router structure
+			00:20 router-link
+			00:23 add new test page
+			00:28 різниця між a(перезавантаження) та router link
+			00:33 router link передача обэкта (26 slide) краще працювати з іменами(більш надійно при зміні шляху в роутах)
+				example router-link :to="{ name:'contacts' }"
+
+			00:40 передача параметрів  
+				path: 'path/:parameter' параметр 
+				path: 'path/:parameter?' необовёязковий параметр
+				this.$route.params.person -зчитування параметра у компоненті
+
+				00:47 приклад
+
+			00:55 передача декількох параметрів
+
+			00:59 програмна навігація
+				01:01 приклад, перехід на сторінку з передачею параметрів
+				function(val){
+					this.router.push({
+						name: 'car',
+						params:{
+							liters: val,
+						},
+					})
+				}
+
+			01:08 приклад, додаток, з передачею id, редагування,додавання, видалення 
+					01:22 розробка компонента з id
+					01:29 список циклом з роутер лінків 
+					01:35 юзер пейдж по ід  
+					01:42 зміст по задачі
+
+					01:43 Редагування користувача
+						01:50 перевірка вхідних данних (підстановка данних якщо предані)
+					02:05 Створення користувача
+					02:16 Видалення  користувача
+
+			02:20 про проект та інше...
+
+lesson 10 (vuex modules)
+
+	//1 add to main store 
+	import moduleName from '../modulePath 
+	createStore({
+	modules:{
+		a: moduleName, if need rename
+		moduleName // or
+	}
+	})
+
+	//2 in module
+	export default :{
+		namespaced:true,
+		state,getters... 
+	}
+
+	//3 use in components
+	import {mapGetters} from 'vuex' 
+		...mapGetters('moduleName['moduleFunction']),
+
+	00:01 vuex modules
+		00:08  (namespaced:true in exported modyle) !!!
+		00:09 use getters from module
+			00:13 rename used in component getters from module
+		00:14 use actions from module
+
+		00:16 example  (namespaced:true in exported modyle) !!!
+			00:22 add modules file
+			00:28 add modules to index
+			00:34 add second module file and add it  to index store file
+
+	00:37 Звернення до внутрішнього гетера
+	00:38 Звернення до  гетера з іншого модуля 
+	 getters:{
+		getterName(state, getters, rootState, rootGetters){
+			getters.someGetter //Звернення до внутрішнього гетера
+			rootGetters['moduleName/someGetterName'] //Звернення до  гетера з іншого модуля 
+		},
+		someGetter(state){ return someValue}
+	 }
+		00:40 example  (add seller to product list, use rootGetters)
+			00:48 додавання логіки
+
+	00:56 Звернення до  екшена з в тому ж модулі
+	 actions:{
+		actionsName({dispatch, commit}){
+			dispatch('someActions', params)
+		},
+		someActions({commit}, params){ 
+			commit('mutationName', params) 
+		},
+	 }
+	00:58 Звернення до  екшена з іншого модуля 
+	 actions:{
+		actionsName({dispatch, commit, getters, rootGetters}){
+			dispatch(
+			'moduleName/actionName', // module name and action in this module
+			params,  // if not have params add null
+			{root:true} //important add this option
+			)
+		},
+	 }
+
+	1:03: спільне сховище, або окремо підключене 
+
+	1:05  helpers (reuse methods,  універсальна мутація для зміни значення стейту)
+
+	1:13  example with filters (Звернення до  екшена з іншого модуля )
+		1:18 checkbox filter
+			1:21 multiselect checkboxes
+
+		1:25 getter with brands list (Звернення до  getters з іншого модуля )
+			1:49 пояснення по роботі і передачі данних через v-model(array of data)
+
+		1:42 radio  filter
+		1:46 getter with sellers list (Звернення до  getters з іншого модуля )
+			1:54 all sellers
+
+		02:02 функціонал фільтрації
+
+		02:19 зміст уроку
+
+lesson 11 (practice vuex modules, router)  TRU AGAIN
+		00:01 plan 
+		00:05 create project 
+		00:10 routes (add pages)
+			00:17 create routes file with part of routes
+
+		00:28 add vuex
+			00:33 add helpers
+				00:39 use localStorage (create services folder), use uuid (generate unique id) !!! TODO
+
+			00:54 add created helpers to modules 
+			01:03 Пояснення по підключенням у сторі
+		
+		01:14 add buttons and router link, add edit user and delete action
+		01:19 reload list  after delete item (use dispatch !!!)
+		01:23 add student PAge
+			01:35 resume student PAge
+
+		01:37 add user data after created( use returned data)
+		01:43 load after go to students page
+		01:47 trouble with upload cuurent user(item)
+		01:56 trouble with edit user
+
+		02:00 Student Detail
+
+		02:09 Events  
+		02:18 Event Edit 
+			02:19 mixins
+
+		02:46 Event Detail 
+			02:52 simple computer route 
+			02:58 add populate
+
+		03:14 about project
+			03:17 унікалізація в назві хелперів
+			  ...mapGetters('moduleName', {getCount:getMyCount}),
+			03:27 about mixins 
+
+
+lesson 12 (router advanced)
+		00:01 dynamical components uplad (lazy load)
+			00:04 example
+
+		00:13 children routes (add <router-view/> inside parent component)
+			00:21 example
+				00:25 add data to store
+				00:33 add routes
+				00:37 add childrens routes
+				00:43 active element
+					00:54 trouble with active element
+						00:56 1 use watcher
+						00:58 2 use route life circle hooks (beforeRouteEnd, beforeRouteUpdate, beforeRouteLeave(to, from, next)  )
+
+		01:04 dinamical routig
+			01:06 regular expresion
+				path:'books/:id(//d+)'  -  //d+ - only numbers (спочатку специфичні)
+				path:'books/:id'  			 - all values (потім загальні)
+
+				01:15 example
+
+			01:16 multiparams
+				path:'books/:id+' 	array of id`s in component this.route.params.id === (['1','2','3'])  
+
+		01:23 props (instead params)
+
+				example (bool )
+					{	path:'books/:id',
+					name: 'books',
+					component: BookItem,
+					props: true 
+					}
+
+				example (obj)
+					{	path:'books/:id',
+					name: 'books',
+					component: BookItem,
+					props: {userName:'Ivan', userAge:21},
+					}
+
+				example (function)
+					{	path:'books/:id',
+					name: 'books',
+					component: BookItem,
+					props: (route) =>({bookId:parseInt(route.params.id)})  //can add main logic
+					}
+
+		01:32 404 page or PageNotFound (add to end of routes array!!!)
+			example 
+				{	path:'/:pathMatch(.*)*',
+				name: 'notFound',
+				component: NotFound
+				}
+
+		01:39 routes hooks lifecircle 
+
+		01:44 route.meta 
+			01:46 example
+			01:55 check authorization (захист шляхів) !!!
+				02:04 детальна схема
+
+
+		02:06 різні компоненти в залежності від підключених роутів !!!
+			02:10 example
+
+lesson 13 (slot, layout)
+		00:01 router view (multi components)
+			00:02 example
+
+		00:16 slot 
+			00:25 example
+				00:35 add slots 
+			00:41 example 2
+				00:35 add slots 
+
+		00:50 slot name -  in tempale v-slot:name or #customName or #default
+			00:56 example
+
+		01:10 передача даних із слота у батьківський компонент приклад
+			01:13 example
+				in child slot name="someName" :prop-name='propName'
+				in parent #someName="{propName}"
+			01:22 example with card
+			01:31 example use in libraries
+			
+		01:34 layout (or masterPage template)
+			01:40  example 
+			02:02 new layout
+			02:09 change one part of layout
+
+		01:58 global components (components in app)
+
+		02:14 lesson resume
+
+lesson 14 (slots practice, add libraries (font awesome, UI- libraries vue))
+		00:01 task 1 (slots, pagination)
+			00:18 pagination
+			00:31 link in pagination  
+			00:38 variation 2 slots (add stage)
+			00:43 variation 3 
+				00:53 trouble with footer(other navigation) @click actions from parent
+				01:01 v-model intro (in HW)
+
+			01:06 new comp on base of other component (if we need reuse this comp )
+
+			01:12 use dinamical components (first mode)
+				01:22 second mode (v-if)
+				01:26 dinamical components
+				01:28 second mode (component :is="computedVAlue")
+
+
+		01:36 add libraries (font awesome)
+
+		01:52 add UI-libraries (Oruga, Vuetify, Quasar)
+			02:02 add components
+			
+		02:08 other libraries Prime Vue, Buefy
+
+
+lesson 15 ( firebase/ firestore)
+		00:01 firebase/ firestore, register,  create database
+			00:14 Create App (VITE)
+				00:19 CLI (отличаи)
+				00:21 VITE (отличаи)
+				00:30 add firestore to project, methods
+				00:35 install vuex
+				00:36 add DBoperation.js class? about base functions
+				00:50 resume
+				
+
+
+tasks in lesson 3,5,6, 7,8
+задача 2 - Задача 2 из урока 8 (или 7)
+задача 3 пройтись по всему из урока 9
+
+
+!array.includes(value) // -true/false
+
+
+stop on lesson 3 2:25 cross=zero !!!!!!!
+
+stop on lesson 10 16min
+
+
+
+
+		HW 
+		1.create app lesson11,
+		2. pages,
+		3. routes (add end test),
+		4. add vuex(modules - students, events) store,
+		5. store -> helpers (all reuse state, getters, actions, mutations)
+		6. store -> services ,  use localStorage (get functionnal from lesson) 
+		7. add modules
+		8. check demo data in module students
+
+		remove postfix modules
+		change on  generalStoreTemplate.js
+		change currentItem 
+
+		in mutations change setStoreItem
+
+		add prefix in getters (get...)
+		in adctions add load items list
+
+		install uuid
+
+		in general template add collectionName
+
+		45 load item by id
+		add item
+		51 updateItem, deleteItem
+
+		change importted getters actions...
+

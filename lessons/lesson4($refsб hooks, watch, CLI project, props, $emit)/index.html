@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vite App</title>
+	<link href="/src/assets/main.css" rel="stylesheet">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+
+	<!-- <div id="app">
+		<fieldset>
+			<label>
+				your age
+				<input type="number" ref="age" v-model.number.lazy="age">
+			</label>
+			<button ref="btn" @click="addAge()"> Add age</button>
+		</fieldset>
+		<div v-if="age">
+			age
+			{{age}}
+		</div>
+		<div v-for="i in 3" :key="i">
+			<label>
+				Mark #{{i}}
+				<input type="number" ref="mark_ref" v-model="marks[i-1]">
+			</label>
+		</div>
+		<button @click='getAverage()'> Get average</button>
+		<div v-if="message"> {{message}} </div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					age: '',
+					marks: [],
+					message: null
+				}
+			},
+			methods: {
+				addAge() {
+					if (this.age === '') return
+					this.$refs.age.focus()
+					this.$refs.btn.style.color = 'red'
+					// this.showAge(true)
+					console.log(this.$refs)
+				},
+				getAverage() {
+					let notValidateInputIndex = -1 //add uncorrected value
+					for (let i = 0; i < 3; i++) { //add elements
+						if (!this.marks[i]) { //if on of elements empty
+							notValidateInputIndex = i // add first invalid index
+							break //break for with first invalid index
+						}
+					}
+					if (notValidateInputIndex !== -1) { //if has one invalid 
+						this.$refs.mark_ref[notValidateInputIndex].focus() //add focus 
+						this.message = `Задайте оцінку № ${notValidateInputIndex + 1}`
+					} else {
+						this.message = `Найменша оцінка: ${Math.min(...this.marks)}`
+					}
+				}
+			},
+			computed: {
+			}
+		})
+
+		app.mount('#app')
+	</script> -->
+
+
+	<!-- http://localhost:5173/lessons/lesson2/index.html -->
+	<!-- <div id="app">
+	</div>
+
+	<script>
+
+		const { createApp } = Vue
+		const app = createApp({
+			data() {
+				return {
+				}
+			},
+			methods: {
+			},
+		})
+		app.mount('#app')
+	</script> -->
+	===============================================================================
+	<br>
+	Задача
+	<br>
+	<div id="app">
+
+		<label>
+			input user name
+			<input type="text" v-model.trim.lazy="userName">
+		</label>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					userNameValue: null,
+				}
+			},
+			methods: {
+			},
+			computed: {
+				userName: {
+					get() {
+						return this.userNameValue
+					},
+					set(val) {
+						this.userNameValue = val
+						localStorage.setItem('userName', val)
+					}
+				}
+			}
+			,
+			// watch: {
+			// 	userName(newVal, oldVal) {
+			// 		localStorage.setItem('userName', this.newVal)
+			// 	}
+			// }
+		})
+
+		app.mount('#app')
+	</script>
+
+	<style>
+
+	</style>
+
+	<!-- <script type="module" src="/src/main.js"></script> -->
+	<!-- template -->
+	<!-- ===============================================================================
+	<br>
+	Задача 
+	<br>
+	<div id="app">
+		
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+
+				}
+			},
+			methods: {
+			},
+			computed: {
+
+			}
+		})
+
+		app.mount('#app')
+	</script>
+	
+	<style>
+	
+	</style> -->
+</body>
+
+</html>
