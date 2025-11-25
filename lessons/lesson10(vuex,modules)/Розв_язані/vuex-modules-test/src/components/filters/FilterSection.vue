@@ -24,6 +24,7 @@ export default {
 			},
 			set(val) {
 				console.log(val, '---------')
+				alert(123)
 
 				this.setFilter(val)
 			},

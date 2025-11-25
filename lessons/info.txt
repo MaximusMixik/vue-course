@@ -1,3 +1,6 @@
+npm create vue@latest
+npm i vuex --save
+
 lesson 1 (create app, v-bind:src, :src, v-model, methods, computed, events)
 
 	create app
@@ -378,13 +381,13 @@ lesson 6 (props, $emits, vite,  v-model, v-model.properties, customModifiers v-m
 		02:08 deploy steps
 			пробел применить, стрелками листать, ентер принять
  
-lesson 7 (vuex, helpers)
+lesson 7 (vuex, helpers, Flux-архитектура) 
 	00:01 vuex theory
 	00:18 flux architecture
 	00:18 create storage
-		00:19 state
+		00:19 state>>  
 		00:22 getters
-		00:25 mutations
+		00:25 mutations 
 		00:25 actions
 
 	00:33 приклад з розгортанням з vuex, create storage
@@ -394,7 +397,7 @@ lesson 7 (vuex, helpers)
 			in main.js
 				import { createApp } from 'vue'
 				import App from './App.vue'
-				import createStore from "./store";
+				import createStore from "./store";  
 				console.log(createStore)
 
 				createApp(App).use(createStore).mount('#app')
@@ -403,10 +406,12 @@ lesson 7 (vuex, helpers)
 
 	00:48 getters (like computed)
 				00:51 getters state, decomposition !!!
-				00:55 getters return function !!!
+				00:54 getters return function !!!
+					anyDivValue(state)=>(divider)=> state.count/divider
+					(divider  in template / state.count in state:{return{count:100}})
 
 	01:01 $store.dispatch / mutation and action 
-	01:08 timeline in extention 
+	01:08 timeline in extention  !!!!!!!!
 
 	01:13 helpers
 	01:26 example task 
@@ -419,8 +424,7 @@ lesson 8 (practice - vuex, helpers)
 	00:01 task 1
 	00:11 task 2 (list with fultration)
 		00:13 vite install
-		00:17 vue vite devtools 
-		00:31 коли і навіщо потрібні локальні змінні (data)  
+		00:28 vue vite devtools/ graf 
 		00:36 imitation upload files 
 			00:46 loading, error components (imitation)
 		01:01 workers List
@@ -507,12 +511,12 @@ lesson 10 (vuex modules)
 		...mapGetters('moduleName['moduleFunction']),
 
 	00:01 vuex modules
-		00:08  (namespaced:true in exported modyle) !!!
+		00:08  (namespaced:true in exported modules) !!!
 		00:09 use getters from module
-			00:13 rename used in component getters from module
+			00:13 rename used in component getters from module // ...mapGetters({ myCount: 'getCount' }), rename and usage example
 		00:14 use actions from module
 
-		00:16 example  (namespaced:true in exported modyle) !!!
+		00:16 example  (namespaced:true in exported module) !!!
 			00:22 add modules file
 			00:28 add modules to index
 			00:34 add second module file and add it  to index store file
@@ -552,6 +556,7 @@ lesson 10 (vuex modules)
 	1:03: спільне сховище, або окремо підключене 
 
 	1:05  helpers (reuse methods,  універсальна мутація для зміни значення стейту)
+		setProp: commonMutations.setPropValue - if need rename method(in mutations) in module
 
 	1:13  example with filters (Звернення до  екшена з іншого модуля )
 		1:18 checkbox filter
@@ -563,12 +568,13 @@ lesson 10 (vuex modules)
 		1:42 radio  filter
 		1:46 getter with sellers list (Звернення до  getters з іншого модуля )
 			1:54 all sellers
+			02:00 зміст radio  filter
 
 		02:02 функціонал фільтрації
 
 		02:19 зміст уроку
 
-lesson 11 (practice vuex modules, router)  TRU AGAIN
+lesson 11 (practice vuex modules, router, localStorage) 
 		00:01 plan 
 		00:05 create project 
 		00:10 routes (add pages)
@@ -586,7 +592,7 @@ lesson 11 (practice vuex modules, router)  TRU AGAIN
 		01:23 add student PAge
 			01:35 resume student PAge
 
-		01:37 add user data after created( use returned data)
+		01:37 add user data after created( use returned data) 
 		01:43 load after go to students page
 		01:47 trouble with upload cuurent user(item)
 		01:56 trouble with edit user
@@ -596,9 +602,10 @@ lesson 11 (practice vuex modules, router)  TRU AGAIN
 		02:09 Events  
 		02:18 Event Edit 
 			02:19 mixins
+			02:47 about events structure
 
-		02:46 Event Detail 
-			02:52 simple computer route 
+		02:49 Event Detail 
+			02:52 simple computed route 
 			02:58 add populate
 
 		03:14 about project
@@ -606,9 +613,8 @@ lesson 11 (practice vuex modules, router)  TRU AGAIN
 			  ...mapGetters('moduleName', {getCount:getMyCount}),
 			03:27 about mixins 
 
-
 lesson 12 (router advanced)
-		00:01 dynamical components uplad (lazy load)
+		00:01 dynamical components uplad (lazy load) webpack chunk name !!!TODO aadd
 			00:04 example
 
 		00:13 children routes (add <router-view/> inside parent component)
@@ -661,7 +667,7 @@ lesson 12 (router advanced)
 				component: NotFound
 				}
 
-		01:39 routes hooks lifecircle 
+		01:39 routes hooks lifecircle (beforeEnter(to) in roures array)
 
 		01:44 route.meta 
 			01:46 example
@@ -725,60 +731,262 @@ lesson 14 (slots practice, add libraries (font awesome, UI- libraries vue))
 			
 		02:08 other libraries Prime Vue, Buefy
 
-
 lesson 15 ( firebase/ firestore)
 		00:01 firebase/ firestore, register,  create database
 			00:14 Create App (VITE)
 				00:19 CLI (отличаи)
 				00:21 VITE (отличаи)
-				00:30 add firestore to project, methods
-				00:35 install vuex
-				00:36 add DBoperation.js class? about base functions
-				00:50 resume
-				
+
+			00:30 add firestore to project, methods (!!!!! create class)
+			00:35 install vuex
+			00:36 add helpers,  DBoperation.js class and getModuleSettingsObject.js class(about base functions) 
+			00:52 resume previus actions
+
+			00:54 layouts from template
+			01:00 products components
+			01:07 products routes
+			01:13 add libraries
+			01:20 upload data from db methods
+
+			01:35 query, sorting methods
+			01:47 filtration
+				01:51 error (create indexes)
+
+			02:00 page create/edt
+				02:01 create - data validation (Yup, VeeValidate - libraries )
+					02:06 form validation (Yup, VeeValidate - libraries )
+				02:20 create/edt structure-functionallity 
+				02:25 :key for update
+
+			02:30 resume about firebase methods
+
+lesson 16 (I18n, auth, secured )
+	00:01 I18n
+		00:10 plugins 
+		00:16 usage example
+		00:21 save locale in localstorage 
+
+	00:31 Google authorization
+		00:40 firebase instalation /.env / firebase.config 
+		00:43 firebase auth services 
+
+	01:02 routing secure (check auth staus)
+
+	01:07 обмеження деяких користувачів(ролі)  production mode in firebase
+		01:18 rules 
+		01:24 add user module and methods
+		01:41 change role from DB
+		01:46 fixes
+		01:51 resume 
+
+	02:00 plans (lessons)
+
+lesson 17 (Composition API)
+	00:02 ref (function, import from vue)
+
+		import {ref} from 'vue'
+		const count = ref(0) // value:0
+		const username = ref('Name') value: 'Name'
+		const username = ref({
+			title: 'Milk',
+			price: 100,
+		}) value: {title:'Milk', ...}
+
+		00:12 test reactivity
+
+	00:17 reactive (import from vue)(not used value)
+
+			const username = reactive({
+				title: 'Milk',
+				price: 100,
+			}) value: {title:'Milk', ...}
+
+	для прмітивних ref, для складних reactive(obj, arr)
+
+	00:23 setup function / setup script
+		00:26 add and use functions 
+
+	00:37 computed (import from vue)
+		00:43 get, set
+
+	00:46 hooks. component lifecircle (import from vue)
+		example
+		import {onMounted} from 'vue'
+		onMounted(()=> {
+			console.log('mounted successfully')
+		})
+
+	00:48 watcher (import from vue)
+		example
+		let age = ref(23)
+		watch(age, (newVal, prevVal) =>{ console.log('newVal, prevVal')} )
+
+		00:52 advanced options (useful!!!)
+		00:57 immediate
+
+	00:58 watchWffect (watch of all variables in project)
+
+	01:00 $refs
+
+	01:04  components (use defineProps, defineEmits...)
+		01:07 local registration 
+		01:09 example defineProps ( vbase-3  - template)
+		01:16 example defineEmits 
+			01:18 function in parent 
+			01:19  emit with  value
+			01:26 use props in emited function (const props = defineProps({props1...}))
+
+	01:28 composable functions (prefix 'use', useMouse)
+		01:36 example 2
+		01:40 counter list
+
+	01:43 errors (onErrorCaptured)
+
+	01:49 pinia
+		01:51 difference/ structure / instalation
+			01:54 use in options api (new import, and export, actions used this !!!)
+				01:56 in component import composition function, and use in ...mapGetters(useCounterStore, ['getSome', ])
+
+				02:04 example
+					02:06 rename in component (without conflicts)
+						...mapState(useCounterStore, { newCount: 'count' }),
+					02:07 usage from other store
+
+				02:09 store.$reset() store.$patch({})
+			
+			02:10 composition api (setup function, return variables )
+				02:14 usage in component
+				02:21  storeToRefs + destructurization (in template without storeNaming) 
+					import {storeToRefs} from 'pinia'
+					const {property1, prop2...} = storeToRefs()  //import reactive data
+					const {method1, method2...} = storeName  //import methods
+			02:26 підписка на стан storeNmae.$subscribe((mutation, state) =>{})  or watch(pinis.state,(state)=>{actions...}, {deep:true})
+		02:27 resume 
+
+lesson 18 (composition api practice)
+	00:02 remind composition api 
+		00:05 ref, functions
+		00:14 hooks
+		00:16 ref, focus
+		00:21 props
+		00:27 compted with props 
+		00:32 emits
+		00:40 composable functions
+
+	00:51 router in composition comp (useRouter)
+		00:57 routeId (ProductView)
+
+	01:05 pinia base
+		01:14 storeToRefs (show reactive variables)
+		01:18 products store 
+		01:28 users store (reuse functionality) useBaseItems
+		01:33 use in template
+			01:37 rename method for use
+
+	01:48  filters store
+		01:58  при використанні з іншого модуля value не потрібно
+		02:00 filters method
+		02:14 filters components
+
+	02:28 actions with products
+		02:28 delete
+		02:34 edit
+			02:38 edit markup
+
+lesson 19 (project example , composition API , firebase)
+	00:02 project preview
+	00:06 i18n (structure)
+		00:18 options / save in localStorage
+		00:21 .env
+		00:22 lang moduleHelpers
+	00:25 icons (font awesome)
+	00:29 firestore
+	00:40 firebase
+		00:43 stores => helpers (class DBOperations.js)
+
+	00:46 stores (general store with modules)
+		00:58 store template, other stores
+
+	01:03 authorization  stores => helpers (class GoogleAuthOperations.js)
+
+	01:10 pages templates layout
+		01:14 main layout
+		01:26 simple layout
+		01:29 main menu (header)
+		01:35 main layout
+		01:38  !stop here!
+
+	01:16 routes (router helpers => secured)
+		01:18 use in menu
+		01:23 page not found
+
+	01:38 main pages layouts
+
+	01:41 user list/item/permissions
+	01:44 rules (permissions reading )
+	01:53 static settings data(views=> specialist=> settings.js)
+
+	02:01 appointments page
+	02:05 recomendations
+
+lesson 20 (backend examples)
+	00:01 xampp mysql2 / node.js
+	00:04-15 truble with start
+	00:19 structure with other back 
+		00:20 registration(tokens) jwt, bcrypt
+		00:28 load data( with tokens) use axios
 
 
-tasks in lesson 3,5,6, 7,8
-задача 2 - Задача 2 из урока 8 (или 7)
-задача 3 пройтись по всему из урока 9
+lesson 21 ()
+	00:02 
+	00:
+	00:
+	00:
+	00:
+	00:
+	00:
+	00:
+	00:
+	01:
+	01:
+	01:
+	01:
+	01:
+	02:
+	02:
+	02:
+	02:
+	02:
+	02:
 
 
-!array.includes(value) // -true/false
+
+
+difference 2 and 3
+1 ref, reactive
+2 setup function / setup script
+3 у 3 є можливість прописувати все поруч, або винести в окремий модуль, у 2 (дата, методс, компютед...) 
+4 hooks has on(prefix)
+5  components use defineProps, defineEmits...
+6 composable functions !!
+7 pinia 
+
+use mixins 
+check watchWffect
+
+storeToRefs
+
+HW
+12 (all)
+13 (finish routes)
+15 (firestore)
+16 (auth)
+
 
 
 stop on lesson 3 2:25 cross=zero !!!!!!!
+lesson 12(end lesson, wach lesson again)
+lesson 13(end HW lesson)
 
-stop on lesson 10 16min
-
-
-
-
-		HW 
-		1.create app lesson11,
-		2. pages,
-		3. routes (add end test),
-		4. add vuex(modules - students, events) store,
-		5. store -> helpers (all reuse state, getters, actions, mutations)
-		6. store -> services ,  use localStorage (get functionnal from lesson) 
-		7. add modules
-		8. check demo data in module students
-
-		remove postfix modules
-		change on  generalStoreTemplate.js
-		change currentItem 
-
-		in mutations change setStoreItem
-
-		add prefix in getters (get...)
-		in adctions add load items list
-
-		install uuid
-
-		in general template add collectionName
-
-		45 load item by id
-		add item
-		51 updateItem, deleteItem
-
-		change importted getters actions...
-
+!array.includes(value) // -true/false
+// ...mapGetters({ myCount: 'getCount' }), rename and usage example
